@@ -7,10 +7,9 @@ console.log("Este es el analizador a patita");
 }*/
 
 
-function Scanner(){
-
-        let Tokens = new Array()
-        let Signos = new Map([['PComa',';'],['SComa',','],['LCierra','}'],['LAbre','{'],['PCierra',')'],['PAbre','('],['SPunto','.'],['SMas','+'],['SPor','*'],['SMenos','-'],['CCierra',']'],['CAbre','['],['SXor','^']])
+function Scanner(Tokens, Errores){
+        let Signos = new Map([['Pyc',';'],['SComa',','],['LCierra','}'],['LAbre','{'],['PCierra',')'],['PAbre','('],['SPunto','.'],['SMas','+'],['SPor','*'],['SMenos','-'],['CCierra',']'],['CAbre','['],['SXor','^']])
+        let PalabrasReservadas = new Array('if','else','public','import','package','class','interface','void','int','double','char','string','boolean','for','while','system','out','println','print','do','break','continue','return','static','main','true','false','switch')
         let entrada = document.getElementById('texto').value;
         let cont = 0
         let line = 1
@@ -65,29 +64,9 @@ function Scanner(){
                 }
             }
             else if (entrada[cont] == '\"'){//texto o error
-                if (entrada[cont+1] == '\/'){
-                    //ir a comentario unilinea
-                    cont++
-                    Tokens.push(ComentarioUni(line, column, entrada, '\/\/')) //Se manda a la funcion Numero
-                }else if (entrada[cont+1] == '*'){
-                    //ir a comentario multilinea
-                    cont++
-                    Tokens.push(ComentarioMulti(line, column, entrada, '\/*')) //Se manda a la funcion Numero
-                }else{
-                    //se guarda el div y se sigue
-                    let tk_nuevo = {
-                        linea: line,
-                        columna: column,
-                        texto: '\/',
-                        nombre: 'SDiv'
-                    }
-                    Tokens.push(tk_nuevo)
-                    cont++
-                    column++
-                }
+
+                Texto(line, column, entrada, entrada[cont]) //Se manda a la funcion Numero 
             }
-
-
             else if (entrada[cont] == '&' && entrada[cont+1] == '&'){//operador and
                 let tk_nuevo = {
                     linea: line,
@@ -248,10 +227,6 @@ function Scanner(){
                     column++
                 }
             }
-
-
-
-
             else{ //aqui caen los errores y signos
                 let isSign = false
                 for(let clave of Signos.keys()){
@@ -278,17 +253,15 @@ function Scanner(){
                         texto: entrada[cont],
                         nombre: 'Error'
                     }
-                    Tokens.push(tk_nuevo)
+                    Errores.push(tk_nuevo)
                     column++
                     cont++
                 }
  
-            }
-            
+            }   
         }
-        //se manda a imprimir los tokens generados
-        ImprimirTokens(Tokens)
-
+        //se cambian los identificadores por las palabras reservadas
+        PalabraReservada()
         //se define un identificador
         function Identificador(linea, columna, texto, word){
             cont++
@@ -401,19 +374,85 @@ function Scanner(){
                 return tk_nuevo
             }
         }
-
-
-
-        //imprimir token
-        function ImprimirTokens(Tokens){
-            for(let token of Tokens){
-                console.log(token.linea+', '+token.columna+', '+token.texto+', '+token.nombre)
+        //se define un texto
+        function Texto(linea, columna, texto, word){
+            cont++
+            column++
+            if (cont < entrada.length){
+                if (entrada[cont] == '\"'){
+                    let tk_nuevo = {
+                        linea: linea,
+                        columna: columna,
+                        texto: word+entrada[cont],
+                        nombre: 'Texto'
+                    }
+                    cont++
+                    column++
+                    Tokens.push(tk_nuevo)
+                    return
+                }else if(entrada[cont] == '\n'){
+                    let tk_nuevo = {
+                        linea: linea,
+                        columna: columna,
+                        texto: word,
+                        nombre: 'Error'
+                    }
+                    Errores.push(tk_nuevo)
+                    return
+                }else{
+                    Texto(linea, columna, texto, word+entrada[cont])//se llama recursivamente
+                }
+            }else{
+                let tk_nuevo = {
+                    linea: linea,
+                    columna: columna,
+                    texto: word,
+                    nombre: 'Texto'
+                }
+                Tokens.push(tk_nuevo)
+                return
             }
         }
+        //se agregan las palabras reservadas
+        function PalabraReservada(){
+            for(let token of Tokens){
+                
+                if(token.nombre == 'Identificador'){
+                    
+                    for(let reservada of PalabrasReservadas){
+                        console.log(reservada+'--'+token.texto.toLowerCase())
+                        if (reservada == token.texto.toLowerCase()){
+                            token.nombre = 'R'+reservada
+                            break
+                        }
+                    }
+
+                }
+            }
+        }
+           
 }
 
+//imprimir token
+function ImprimirTokens(Tokens){
+    console.log('Lista de Tokens:')
+    for(let token of Tokens){
+        console.log(token.linea+', '+token.columna+', '+token.texto+', '+token.nombre)
+    }
+}
+//imprimir errores
+function ImprimirErrores(Errores){
+    console.log('Lista de Errores:')
+    for(let error of Errores){
+        console.log(error.linea+', '+error.columna+', '+error.texto+', '+error.nombre)
+    }
+}
 
 function Analizar(){
-    Scanner();
+    let Tokens = new Array()
+    let Errores = new Array()
+    Scanner(Tokens, Errores);
+    ImprimirTokens(Tokens)
+    ImprimirErrores(Errores)
     console.log('Se realizó el analisis correctamente')
 }   

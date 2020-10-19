@@ -1,0 +1,107 @@
+Gramática:
+
+INICIO := CLASE INICIO
+			| INTERFAZ INICIO
+			| Epsilon
+
+CLASE := Rpublic Rclass Identificador LAbre CONTCLASS LCierra
+
+INTERFAZ := Rpublic Rinterfaz Identificador LAbre CONTINTER LCierra
+
+CONTINTER := Metodo CONTCLASS
+						| Epsilon
+
+CONTCLASS := MAIN CONTCLASS
+						| FUNCION CONTCLASS
+						| DECLARACION CONTCLASS
+						| Epsilon
+
+MAIN := Rpublic Rstatic Rvoid Rmain PAbre Rstring CAbre CCierra Identificador PCierra LAbre INSTRUCCIONES LCierra
+
+DECLARACION := Rint Identificador NEXTDEC
+							| Rdouble Identificador NEXTDEC
+							| Rstring Identificador NEXTDEC
+							| Rchar Identificador NEXTDEC
+							| Rboolean Identificador NEXTDEC
+
+NEXTDEC := SIgual FINDEC
+					| Pyc
+
+FINDEC	:= Numero Pyc
+				| Identificador Pyc	
+				| Texto Pyc
+
+FUNCION := Rpublic TIPO Identificador PAbre PARAMETROS PCierra LAbre INSTRUCCIONES LCierra
+
+TIPO := Rint
+	     | Rdouble
+	     | Rstring
+	     | Rchar
+	     | Rboolean
+		 | Rvoid
+
+PARAMETROS := PARAM
+							| Epsilon
+
+PARAM := TIPO Identificador NEXTPARAM
+
+NEXTPARAM := SComa PARAM
+						| Epsilon
+
+INSTRUCCIONES := CICLO INSTRUCCIONES
+									| CONTROL INSTRUCCIONES
+									| EXP INSTRUCCIONES
+									| ASIG INSTRUCCIONES
+									| CALL INSTRUCCIONES
+									| PRINT INSTRUCCIONES
+									| Epsilon
+									
+CICLO := Rfor PAbre DECLARACION Pyc EXP Pyc EXP Pyc PCierra LAbre INSTRUCCIONES LCierra
+				| Rwhile PAbre EXP PCierra LAbre INSTRUCCIONES LCierra
+				| Rdo LAbre INSTRUCCIONES LCierra Rwhile PAbre EXP PCierra Pyc
+				
+CONTROL := IF
+
+IF := Rif PAbre EXP PCierra LAbre INSTRUCCIONES LCierra ELSE
+
+ELSE := Relse ELSEIF LAbre INSTRUCCIONES LCierra ELSE
+				| Epsilon
+
+ELSEIF := Rif PAbre EXP PCierra
+				| Epsilon
+				
+EXP := 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
