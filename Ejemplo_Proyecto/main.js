@@ -8,10 +8,10 @@ console.log("Este es el analizador a patita");
 
 
 function Scanner(Tokens, Errores){
-        let Signos = new Map([['Pyc',';'],['SComa',','],['LCierra','}'],['LAbre','{'],['PCierra',')'],['PAbre','('],['SPunto','.'],['SMas','+'],['SPor','*'],['SMenos','-'],['CCierra',']'],['CAbre','['],['SXor','^']])
+        let Signos = new Map([['Pyc',';'],['SComa',','],['LCierra','}'],['LAbre','{'],['PCierra',')'],['PAbre','('],['SPunto','.'],['SMas','+'],['SPor','*'],['SMenos','-'],['CCierra',']'],['CAbre','['],['Xor','^']])
         let PalabrasReservadas = new Array('if','else','public','import','package','class','interface','void','int','double','char','string','boolean','for','while','system','out','println','print','do','break','continue','return','static','main','true','false','switch')
         let entrada = document.getElementById('texto').value;
-        let cont = 0
+    let cont = 0
         let line = 1
         let column = 1
         let vocal = /^[A-Za-z]$/

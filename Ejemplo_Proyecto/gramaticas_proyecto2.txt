@@ -1,77 +1,150 @@
-Gramática:
+************************************************************* GRAMÁTICA *************************************************************
 
-INICIO := CLASE INICIO
-			| INTERFAZ INICIO
+INICIO := Rpublic S INICIO
+		| Epsilon
+
+S := Rclass CONTENIDO
+	| Rinterfaz CONTENIDO
+
+CONTENIDO := Identificador LAbre DEF
+
+DEF := CONTCLASS LCierra
+	| CONTINTER LCierra
+
+CONTINTER := METODO CONTINTER
 			| Epsilon
 
-CLASE := Rpublic Rclass Identificador LAbre CONTCLASS LCierra
-
-INTERFAZ := Rpublic Rinterfaz Identificador LAbre CONTINTER LCierra
-
-CONTINTER := Metodo CONTCLASS
-						| Epsilon
+METODO := Rpublic TIPO Identificador PAbre PARAMETROS PCierra Pyc
 
 CONTCLASS := MAIN CONTCLASS
-						| FUNCION CONTCLASS
-						| DECLARACION CONTCLASS
-						| Epsilon
+			| FUNCION CONTCLASS
+			| DECLARACION CONTCLASS
+			| Epsilon
 
 MAIN := Rpublic Rstatic Rvoid Rmain PAbre Rstring CAbre CCierra Identificador PCierra LAbre INSTRUCCIONES LCierra
 
 DECLARACION := Rint Identificador NEXTDEC
-							| Rdouble Identificador NEXTDEC
-							| Rstring Identificador NEXTDEC
-							| Rchar Identificador NEXTDEC
-							| Rboolean Identificador NEXTDEC
+			| Rdouble Identificador NEXTDEC
+			| Rstring Identificador NEXTDEC
+			| Rchar Identificador NEXTDEC
+			| Rboolean Identificador NEXTDEC
 
 NEXTDEC := SIgual FINDEC
-					| Pyc
+		| Pyc
 
 FINDEC	:= Numero Pyc
-				| Identificador Pyc	
-				| Texto Pyc
+		| Identificador Pyc	
+		| Texto Pyc
 
 FUNCION := Rpublic TIPO Identificador PAbre PARAMETROS PCierra LAbre INSTRUCCIONES LCierra
 
 TIPO := Rint
-	     | Rdouble
-	     | Rstring
-	     | Rchar
-	     | Rboolean
-		 | Rvoid
+	| Rdouble
+	| Rstring
+	| Rchar
+	| Rboolean
+	| Rvoid
 
 PARAMETROS := PARAM
-							| Epsilon
+			| Epsilon
 
 PARAM := TIPO Identificador NEXTPARAM
 
 NEXTPARAM := SComa PARAM
-						| Epsilon
+			| Epsilon
 
 INSTRUCCIONES := CICLO INSTRUCCIONES
-									| CONTROL INSTRUCCIONES
-									| EXP INSTRUCCIONES
-									| ASIG INSTRUCCIONES
-									| CALL INSTRUCCIONES
-									| PRINT INSTRUCCIONES
-									| Epsilon
+				| CONTROL INSTRUCCIONES
+				| EXP INSTRUCCIONES
+				| ASIG INSTRUCCIONES
+				| CALL INSTRUCCIONES
+				| PRINT INSTRUCCIONES
+				| DECLARACION INSTRUCCIONES
+				| Epsilon
 									
 CICLO := Rfor PAbre DECLARACION Pyc EXP Pyc EXP Pyc PCierra LAbre INSTRUCCIONES LCierra
-				| Rwhile PAbre EXP PCierra LAbre INSTRUCCIONES LCierra
-				| Rdo LAbre INSTRUCCIONES LCierra Rwhile PAbre EXP PCierra Pyc
-				
+		| Rwhile PAbre EXP PCierra LAbre INSTRUCCIONES LCierra
+		| Rdo LAbre INSTRUCCIONES LCierra Rwhile PAbre EXP PCierra Pyc
+		
 CONTROL := IF
 
 IF := Rif PAbre EXP PCierra LAbre INSTRUCCIONES LCierra ELSE
 
 ELSE := Relse ELSEIF LAbre INSTRUCCIONES LCierra ELSE
-				| Epsilon
+		| Epsilon
 
 ELSEIF := Rif PAbre EXP PCierra
-				| Epsilon
-				
-EXP := 
+		| Epsilon
 
+EXP := L
+	| R
+	| E
+
+L := P L'
+
+L' := Or P L'
+	| And P L'
+	| Xor P L'
+	| Epsilon
+
+P := Identificador
+	| Rtrue
+	| Rfalse
+	| PAbre L PCierra
+	| Not L 
+	| R
+
+R := V R'
+
+R' := SMayor V R'
+	| SMenor V R'
+	| SMayorIgual V R'
+	| SMenorIgual V R'
+	| SComp V R'
+	| SDif V R'
+	| Epsilon
+
+V := Identificador
+	| PAbre R PCierra
+	| Numero
+	| E
+
+E := T E'
+
+E' := SMas T E'
+	| SMenos T E'
+	| SMenos SMenos E'
+	| SMas SMas E'
+	| Epsilon
+
+T := F T'
+
+T' := SPor F T'
+	| SDiv F T'
+	| Epsilon
+
+F := Identificador
+	| Numero
+	| PAbre EXP PCierra
+
+ASIG := Identificador SIgual EXP Pyc
+
+CALL := Identificador PAbre RECIBE PCierra Pyc
+
+RECIBE := Identificador
+		| Numero
+		| Rtrue
+		| Rfalse
+		| Texto
+
+PRINT := Rsystem SPunto Rout SPunto SALIDA
+
+SALIDA := Rprintln PAbre MSG PCierra Pyc
+		| Rprint PAbre MSG PCierra Pyc
+
+MSG := Identificador
+		| Numero
+		| Texto
 
 
 
