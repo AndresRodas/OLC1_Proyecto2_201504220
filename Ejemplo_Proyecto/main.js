@@ -20,6 +20,7 @@ function Scanner(Tokens, Errores){
         let numero2 = /^[0-9\.]$/
         let salto = /^[\n]/
         let space = /^[ ]/
+        let tet = ['4','cuatro']
         console.log(entrada)
         while (cont < entrada.length){
             if (vocal.test(entrada[cont]))//Se manda a la funcion identidicador
@@ -420,7 +421,7 @@ function Scanner(Tokens, Errores){
                 if(token.nombre == 'Identificador'){
                     
                     for(let reservada of PalabrasReservadas){
-                        console.log(reservada+'--'+token.texto.toLowerCase())
+                        //console.log(reservada+'--'+token.texto.toLowerCase())
                         if (reservada == token.texto.toLowerCase()){
                             token.nombre = 'R'+reservada
                             break
@@ -433,18 +434,40 @@ function Scanner(Tokens, Errores){
            
 }
 
-//imprimir token
-function ImprimirTokens(Tokens){
-    console.log('Lista de Tokens:')
-    for(let token of Tokens){
-        console.log(token.linea+', '+token.columna+', '+token.texto+', '+token.nombre)
-    }
+
+function Parser(Tokens){
+
+    let NoTerminales = new Map([
+        'INICIO',[['Rpublic',['INICIO','S','Rpublic']],['$',['Epsilon']]], 
+        'S',[['Rclass',['CONTENIDO','Rclass']],['Rinterfaz',['CONTENIDO','Rinterfaz']]],
+        'CONTENIDO',[['Identificador',['DEF','LAbre','Identificador']]],
+        'DEF',[['Rclase',['LCierra','Rclase']],['Rinterface',['LCierra','Rinterface']]]
+    ])
+    let Pila = new Array('$','INICIO')
+
+    
+
 }
-//imprimir errores
-function ImprimirErrores(Errores){
-    console.log('Lista de Errores:')
-    for(let error of Errores){
-        console.log(error.linea+', '+error.columna+', '+error.texto+', '+error.nombre)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//imprimir
+function Imprimir(Lista, str){
+    console.log('Lista de '+str+':')
+    for(let token of Lista){
+        console.log(token.linea+', '+token.columna+', '+token.texto+', '+token.nombre)
     }
 }
 
@@ -452,7 +475,7 @@ function Analizar(){
     let Tokens = new Array()
     let Errores = new Array()
     Scanner(Tokens, Errores);
-    ImprimirTokens(Tokens)
-    ImprimirErrores(Errores)
+    Imprimir(Tokens, 'Tokens')
+    Imprimir(Errores, 'Errores')
     console.log('Se realizó el analisis correctamente')
 }   

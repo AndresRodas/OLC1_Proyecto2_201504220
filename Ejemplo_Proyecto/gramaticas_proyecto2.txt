@@ -146,35 +146,3 @@ MSG := Identificador
 		| Numero
 		| Texto
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
