@@ -3,18 +3,11 @@
 INICIO := Rpublic S INICIO
 		| Epsilon
 
-S := Rclass CONTENIDO
-	| Rinterfaz CONTENIDO
+S := Rclass Identificador LAbre CONTCLASS LCierra
+	| Rinterfaz Identificador LAbre CONTINTER LCierra 
 
-CONTENIDO := Identificador LAbre DEF
-
-DEF := CONTCLASS LCierra
-	| CONTINTER LCierra
-
-CONTINTER := METODO CONTINTER
+CONTINTER := Rpublic TIPO Identificador PAbre NEXTFUNC PCierra Pyc CONTINTER
 			| Epsilon
-
-METODO := Rpublic TIPO Identificador PAbre PARAMETROS PCierra Pyc
 
 CONTCLASS := MAIN CONTCLASS
 			| FUNCION CONTCLASS
@@ -36,7 +29,10 @@ FINDEC	:= Numero Pyc
 		| Identificador Pyc	
 		| Texto Pyc
 
-FUNCION := Rpublic TIPO Identificador PAbre PARAMETROS PCierra LAbre INSTRUCCIONES LCierra
+FUNCION := Rpublic TIPO Identificador PAbre NEXTFUNC PCierra LAbre INSTRUCCIONES LCierra
+
+NEXTFUNC := PARAMETROS
+		| Epsilon
 
 TIPO := Rint
 	| Rdouble
@@ -45,12 +41,9 @@ TIPO := Rint
 	| Rboolean
 	| Rvoid
 
-PARAMETROS := PARAM
-			| Epsilon
+PARAMETROS := TIPO Identificador NEXTPARAM
 
-PARAM := TIPO Identificador NEXTPARAM
-
-NEXTPARAM := SComa PARAM
+NEXTPARAM := SComa PARAMETROS
 			| Epsilon
 
 INSTRUCCIONES := CICLO INSTRUCCIONES
@@ -65,10 +58,8 @@ INSTRUCCIONES := CICLO INSTRUCCIONES
 CICLO := Rfor PAbre DECLARACION Pyc EXP Pyc EXP Pyc PCierra LAbre INSTRUCCIONES LCierra
 		| Rwhile PAbre EXP PCierra LAbre INSTRUCCIONES LCierra
 		| Rdo LAbre INSTRUCCIONES LCierra Rwhile PAbre EXP PCierra Pyc
-		
-CONTROL := IF
 
-IF := Rif PAbre EXP PCierra LAbre INSTRUCCIONES LCierra ELSE
+CONTROL := Rif PAbre EXP PCierra LAbre INSTRUCCIONES LCierra ELSE
 
 ELSE := Relse ELSEIF LAbre INSTRUCCIONES LCierra ELSE
 		| Epsilon
@@ -127,15 +118,28 @@ F := Identificador
 	| Numero
 	| PAbre EXP PCierra
 
-ASIG := Identificador SIgual EXP Pyc
+ASIG := Identificador SIgual NEXTASIG Pyc
 
-CALL := Identificador PAbre RECIBE PCierra Pyc
-
-RECIBE := Identificador
+NEXTASIG := Identificador
+		| EXP
 		| Numero
 		| Rtrue
 		| Rfalse
-		| Texto
+
+CALL := Identificador PAbre NEXTCALL PCierra Pyc
+
+NEXTCALL := RECIBE 
+		| Epsilon
+
+RECIBE := Identificador NEXTRECIBE
+		| Numero NEXTRECIBE
+		| Rtrue NEXTRECIBE
+		| Rfalse NEXTRECIBE
+		| Texto NEXTRECIBE
+
+ 
+NEXTRECIBE := SComa RECIBE
+			| Epsilon
 
 PRINT := Rsystem SPunto Rout SPunto SALIDA
 
@@ -145,4 +149,7 @@ SALIDA := Rprintln PAbre MSG PCierra Pyc
 MSG := Identificador
 		| Numero
 		| Texto
+		| Rtrue
+		| Rfalse
+		| EXP
 

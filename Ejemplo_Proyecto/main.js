@@ -9,7 +9,7 @@ console.log("Este es el analizador a patita");
 
 function Scanner(Tokens, Errores){
         let Signos = new Map([['Pyc',';'],['SComa',','],['LCierra','}'],['LAbre','{'],['PCierra',')'],['PAbre','('],['SPunto','.'],['SMas','+'],['SPor','*'],['SMenos','-'],['CCierra',']'],['CAbre','['],['Xor','^']])
-        let PalabrasReservadas = new Array('if','else','public','import','package','class','interface','void','int','double','char','string','boolean','for','while','system','out','println','print','do','break','continue','return','static','main','true','false','switch')
+        let PalabrasReservadas = new Array('clase','interface','if','else','public','import','package','class','interfaz','void','int','double','char','string','boolean','for','while','system','out','println','print','do','break','continue','return','static','main','true','false','switch')
         let entrada = document.getElementById('texto').value;
     let cont = 0
         let line = 1
@@ -437,31 +437,79 @@ function Scanner(Tokens, Errores){
 
 function Parser(Tokens){
 
-    let NoTerminales = new Map([
-        'INICIO',[['Rpublic',['INICIO','S','Rpublic']],['$',['Epsilon']]], 
-        'S',[['Rclass',['CONTENIDO','Rclass']],['Rinterfaz',['CONTENIDO','Rinterfaz']]],
-        'CONTENIDO',[['Identificador',['DEF','LAbre','Identificador']]],
-        'DEF',[['Rclase',['LCierra','Rclase']],['Rinterface',['LCierra','Rinterface']]]
+    let result = ''
+    let Producciones = new Map([
+        ['INICIO',[['Rpublic',['INICIO','S','Rpublic']],['$',['Epsilon']]]], 
+        ['S',[['Rclass',['CONTENIDO','Rclass']],['Rinterfaz',['CONTENIDO','Rinterfaz']]]],
+        ['CONTENIDO',[['Identificador',['DEF','LAbre','Identificador']]]],
+        ['DEF',[['Rclase',['LCierra','Rclase']],['Rinterface',['LCierra','Rinterface']]]]
     ])
-    let Pila = new Array('$','INICIO')
+    let Pila = new Array('$','INICIO') //se agrega el EOF en la pila
+    let tk_nuevo = {
+        linea: 0,
+        columna: 0,
+        texto: 0,
+        nombre: '$'
+    }
+    Tokens.push(tk_nuevo)//se agrega el EOF en la cadena
 
-    
+    while (Pila.length != 0 ){
+        let var1 = Pila[Pila.length-1]
+        let var2 = Tokens[0].nombre
+        if (var1 == var2){
+            if (var1 == '$'){
+                //se acepta la cadena
+                result = 'LA CADENA ES VALIDA'
+                console.log(result)
+                break
+            }else{
+                Pila.pop()
+                //Tokens.pop(0)
+                Tokens.splice(0,1)
+            }
+        }else{
+            Pila.pop()
+            let var3 = ObtenerDato(var1, var2) //OBTENER
+            Push(var3) //PUSHEAR
+        }
+        console.log(Pila)
+        console.log(Tokens)
+        if (result == 'LA CADENA ES INVALIDA'){
+            break
+        }
+    }
 
+    function Push(var3){
+        //PUSHEAR
+        if (var3 == undefined){
+            //la cadena no se acepta
+            result = 'LA CADENA ES INVALIDA'
+            console.log(result)
+            
+        }else if (var3[0] == 'Epsilon'){
+            return
+        }else{
+            for (let x of var3){
+                Pila.push(x) //se agregan las producciones desglosadas a la pila
+            }  
+        }
+    }
+
+    function ObtenerDato(var1, var2){
+        let lista = Producciones.get(var1)
+        let temporal = undefined
+        if (lista != undefined){
+            //OBTENER
+            for (let x of lista){
+                if (x[0] == var2){
+                    //se desglosa
+                    temporal = x[1]
+                }
+            }
+        }
+        return temporal
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //imprimir
 function Imprimir(Lista, str){
@@ -477,5 +525,7 @@ function Analizar(){
     Scanner(Tokens, Errores);
     Imprimir(Tokens, 'Tokens')
     Imprimir(Errores, 'Errores')
-    console.log('Se realizó el analisis correctamente')
+    console.log('Se realizó el analisis Lexico correctamente')
+    Parser(Tokens)
+    console.log('Se realizó el analisis Sintactico correctamente')
 }   
