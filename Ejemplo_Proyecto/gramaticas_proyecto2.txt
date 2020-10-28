@@ -9,12 +9,14 @@ S := Rclass Identificador LAbre CONTCLASS LCierra
 CONTINTER := Rpublic TIPO Identificador PAbre NEXTFUNC PCierra Pyc CONTINTER
 			| Epsilon
 
-CONTCLASS := MAIN CONTCLASS
-			| FUNCION CONTCLASS
+CONTCLASS := Rpublic CCN
 			| DECLARACION CONTCLASS
 			| Epsilon
 
-MAIN := Rpublic Rstatic Rvoid Rmain PAbre Rstring CAbre CCierra Identificador PCierra LAbre INSTRUCCIONES LCierra
+CCN := MAIN CONTCLASS
+	| FUNCION CONTCLASS
+
+MAIN := Rstatic Rvoid Rmain PAbre Rstring CAbre CCierra Identificador PCierra LAbre INSTRUCCIONES LCierra
 
 DECLARACION := Rint Identificador NEXTDEC
 			| Rdouble Identificador NEXTDEC
@@ -29,7 +31,7 @@ FINDEC	:= Numero Pyc
 		| Identificador Pyc	
 		| Texto Pyc
 
-FUNCION := Rpublic TIPO Identificador PAbre NEXTFUNC PCierra LAbre INSTRUCCIONES LCierra
+FUNCION := TIPO Identificador PAbre NEXTFUNC PCierra LAbre INSTRUCCIONES LCierra
 
 NEXTFUNC := PARAMETROS
 		| Epsilon
@@ -152,4 +154,3 @@ MSG := Identificador
 		| Rtrue
 		| Rfalse
 		| EXP
-
