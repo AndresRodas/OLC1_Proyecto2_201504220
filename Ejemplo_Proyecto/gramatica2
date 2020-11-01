@@ -25,9 +25,10 @@ DECLARACION	:=	Rint	Identificador	NEXTDEC
 NEXTDEC	:=	SIgual	FINDEC										
 	|	Pyc											
 													
-FINDEC	:=	Numero	Pyc										
-	|	Identificador	Pyc										
-	|	Texto	Pyc										
+FINDEC	:=	Numero	Pyc			!!!!!						
+	|	Identificador	Pyc		!!!!!								
+	|	Texto	Pyc	
+	|	EXP Pyc					!!!!!				
 													
 FUNCION	:=	TIPO	Identificador	PAbre	NEXTFUNC	PCierra	LAbre	INSTRUCCIONES	LCierra				
 													
@@ -66,7 +67,7 @@ ELSE	:=	Relse	ELSEIF	LAbre	INSTRUCCIONES	LCierra	ELSE
 ELSEIF	:=	Rif	PAbre	EXP	PCierra								
 	|	Epsilon											
 													
-    	:=	P	L'										
+EXP		:=	P	L'										
 													
 L'	:=	Or	P	L'									
 	|	And	P	L'									
