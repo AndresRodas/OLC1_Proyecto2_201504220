@@ -1,0 +1,15 @@
+public class Clase1{
+   int num = 90
+   String str;
+   public static void main (String[] args){
+ 
+      for (int a = 0; a < 10; a++){
+         num ++;
+      }
+      while(a < 10){
+         num--;
+         System.out.println("as");
+      }
+
+   }
+}

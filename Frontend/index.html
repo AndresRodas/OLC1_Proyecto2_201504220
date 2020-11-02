@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/index.css"/>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="./jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="vis-4.21.0/dist/vis.js"></script>
+        <script src="./codemirror/lib/codemirror.js"></script>
+        <link rel="stylesheet" href="./codemirror//lib//codemirror.css">
+        <link rel="stylesheet" href="./codemirror//theme//eclipse.css">
+        <script src="./codemirror/mode/clike/clike.js"></script>
+        <title>Proyecto 2</title>
+    </head>
+    <body>
+        <div class="contenedor">
+            <button onclick="Analizar();" title="Analizar" id="btn5" class="btnp">Analizar</button>
+            <button onclick="DescargarArchivo();" id="guardar" title="Guardar" class="btnp">Guardar Traducción</button>
+            <button onclick="agregar();" title="AgregarPestana" id="btn4" class="btnp">Pestaña Nueva</button>
+            <button onclick="quitar();" title="QuitarPestana" id="btn5" class="btnp">Quitar Pestaña</button>
+        </div>
+        <div class="contenedor">
+            <input id="fileInput" title="Abrir" type="file" size="50" onchange="AbrirArchivo(this.files)" class="btnp">
+            
+            
+            <div id="pestanas">
+                <ul id=lista>
+                </ul>
+            </div>
+
+            <body>
+                <div id="contenidopestanas">
+                </div>
+            </body>
+        </div>
+        <div id="grafo"></div>
+    </body>
+</html>
