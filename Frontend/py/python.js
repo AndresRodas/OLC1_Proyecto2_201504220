@@ -1,3 +1,4 @@
+console.log('Funcionando!')
 var contador=0;
 function get_cont(){
     return contador++;
@@ -764,12 +765,13 @@ function Analizar(){
     Grafo(nodes, edges)
 
     var TokensPython = Traducir(Tokens)
-
+    var salida = ''
     for(let tkp of TokensPython){
-        console.log(tkp.texto)
+        
+        salida = salida + tkp.texto
     } 
+    console.log(salida)
 }   
-
 //********************************TRADUCIR A PYTHON******************************************
 function Traducir(Tokens) {
     let Tk_Py = []
@@ -1082,6 +1084,7 @@ function Traducir(Tokens) {
                 break;
         }
     } 
+    
     if (main){
         let main_text = 'if __name__ = \"__main__\":\n main()'
         tk_nuevo = CrearToken(0, 0, main_text)
@@ -1172,8 +1175,18 @@ function Grafo(nodes, edges) {
     nodes = NodosRepetidos(nodes)
     edges = EdgesRepetidos(edges)  
     var options = {
-        width:  '600px',
-        height: '600px',
+        layout:{
+            hierarchical:{
+                direction: "UD",
+                sortMethod: "directed",
+                shakeTowards: 'leaves'
+            },
+        },
+        edges: {
+            arrows: "to",
+        },
+        width:  '1000px',
+        height: '1000px',
     }; 
     // create a network
     var container = document.getElementById('grafo');

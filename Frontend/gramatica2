@@ -1,0 +1,153 @@
+INICIO	:=	Rpublic	S	INICIO									
+	|	Epsilon											
+													
+S	:=	Rclass	Identificador	LAbre	CONTCLASS	LCierra							
+	|	Rinterfaz	Identificador	LAbre	CONTINTER	LCierra							
+													
+CONTINTER	:=	Rpublic	TIPO	Identificador	PAbre	NEXTFUNC	PCierra	Pyc	CONTINTER				
+	|	Epsilon											
+													
+CONTCLASS	:=	Rpublic	CCN										
+	|	DECLARACION	CONTCLASS										
+	|	Epsilon											
+													
+CCN	:=	MAIN	CONTCLASS										
+	|	FUNCION	CONTCLASS										
+													
+MAIN	:=	Rstatic	Rvoid	Rmain	PAbre	Rstring	CAbre	CCierra	Identificador	PCierra	LAbre	INSTRUCCIONES	LCierra
+													
+DECLARACION	:=	Rint	Identificador	NEXTDEC									
+	|	Rdouble	Identificador	NEXTDEC									
+	|	Rstring	Identificador	NEXTDEC									
+	|	Rchar	Identificador	NEXTDEC									
+	|	Rboolean	Identificador	NEXTDEC									
+													
+NEXTDEC	:=	SIgual	FINDEC										
+	|	Pyc											
+													
+FINDEC	:=	Numero	Pyc			!!!!!						
+	|	Identificador	Pyc		!!!!!								
+	|	Texto	Pyc	
+	|	EXP Pyc					!!!!!				
+													
+FUNCION	:=	TIPO	Identificador	PAbre	NEXTFUNC	PCierra	LAbre	INSTRUCCIONES	LCierra				
+													
+NEXTFUNC	:=	PARAMETROS											
+	|	Epsilon											
+													
+TIPO	:=	Rint											
+	|	Rdouble											
+	|	Rstring											
+	|	Rchar											
+	|	Rboolean											
+	|	Rvoid											
+													
+PARAMETROS	:=	TIPO	Identificador	NEXTPARAM									
+													
+NEXTPARAM	:=	SComa	PARAMETROS										
+	|	Epsilon											
+													
+INSTRUCCIONES	:=	CICLO	INSTRUCCIONES										
+	|	CONTROL	INSTRUCCIONES										
+	|	EXP	INSTRUCCIONES										
+	|	PRINT	INSTRUCCIONES										
+	|	DECLARACION	INSTRUCCIONES										
+	|	Epsilon											
+													
+													
+CICLO	:=	Rfor	PAbre	DECLARACION	Pyc	EXP	Pyc	EXP	Pyc	PCierra	LAbre	INSTRUCCIONES	LCierra
+	|	Rwhile	PAbre	EXP	PCierra	LAbre	INSTRUCCIONES	LCierra					
+	|	Rdo	LAbre	INSTRUCCIONES	LCierra	Rwhile	PAbre	EXP	PCierra	Pyc			
+													
+CONTROL	:=	Rif	PAbre	EXP	PCierra	LAbre	INSTRUCCIONES	LCierra	ELSE				
+													
+ELSE	:=	Relse	ELSEIF	LAbre	INSTRUCCIONES	LCierra	ELSE						
+	|	Epsilon											
+													
+ELSEIF	:=	Rif	PAbre	EXP	PCierra								
+	|	Epsilon											
+													
+EXP		:=	P	L'										
+													
+L'	:=	Or	P	L'									
+	|	And	P	L'									
+	|	Xor	P	L'									
+	|	Epsilon											
+													
+P	:=	Rtrue											
+	|	Rfalse											
+	|	Not	EXP										
+	|	R											
+													
+													
+													
+R	:=	E	R'										
+													
+R'	:=	SMayor	V	R'									
+	|	SMenor	V	R'									
+	|	SMayorIgual	V	R'									
+	|	SMenorIgual	V	R'									
+	|	SComp	V	R'									
+	|	SDif	V	R'									
+	|	Epsilon											
+													
+E	:=	T	E'										
+													
+E'	:=	SMas	SMA										
+	|	SMenos	SME										
+	|	Epsilon											
+													
+T	:=	F	T'										
+													
+T'	:=	SPor	F	T'									
+	|	SDiv	F	T'									
+	|	Epsilon											
+													
+F	:=	Identificador	IDN										
+	|	Numero											
+	|	PAbre	EXP	PCierra									
+													
+SMA	:=	T	E’										
+	|	Smas											
+													
+SME	:=	T	E’										
+		Smenos											
+													
+IDN	:=	ASIG										
+	|	CALL										
+	|	Epsilon											
+													
+ASIG	:=	SIgual	NEXTASIG	Pyc									
+													
+NEXTASIG	:=	Identificador											
+	|	EXP											
+	|	Numero											
+	|	Rtrue											
+	|	Rfalse											
+													
+CALL	:=	PAbre	NEXTCALL	PCierra	Pyc								
+													
+NEXTCALL	:=	RECIBE											
+	|	Epsilon											
+													
+RECIBE	:=	Identificador	NEXTRECIBE										
+	|	Numero	NEXTRECIBE										
+	|	Rtrue	NEXTRECIBE										
+	|	Rfalse	NEXTRECIBE										
+	|	Texto	NEXTRECIBE										
+													
+													
+NEXTRECIBE	:=	SComa	RECIBE										
+	|	Epsilon											
+													
+PRINT	:=	Rsystem	SPunto	Rout	SPunto	SALIDA							
+													
+SALIDA	:=	Rprintln	PAbre	MSG	PCierra	Pyc							
+	|	Rprint	PAbre	MSG	PCierra	Pyc							
+													
+MSG	:=	Identificador											
+	|	Numero											
+	|	Texto											
+	|	Rtrue											
+	|	Rfalse											
+	|	EXP											
