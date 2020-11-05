@@ -530,8 +530,14 @@ function Parser(TokensEntrada, Errores, nodes, edges){
 }
 //********************************ANALIZAR ENTRADA*******************************************
 function Analizar(){
+
+    var div = document.getElementById('graph')
+    var grafi = 'digraph  {po -> b}'
+    d3.select(div).graphviz().renderDot(grafi);
+
     //entrada
     var entrada = document.getElementById('texto').value;
+
     //se declaran los arrays
     var Tokens = new Array()
     var Tokens_Parser = new Array()

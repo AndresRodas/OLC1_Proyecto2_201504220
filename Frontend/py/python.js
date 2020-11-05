@@ -1,5 +1,5 @@
-console.log('Funcionando!')
-var contador=0;
+
+var contador=1;
 function get_cont(){
     return contador++;
 }
@@ -45,6 +45,7 @@ function index(pestanias, pestania) {
             $(listacPestannas.getElementsByTagName('div')[i]).css('display','none');
             $(listaPestannas.getElementsByTagName('li')[i]).css('background','');
             $(listaPestannas.getElementsByTagName('li')[i]).css('padding-bottom','');
+
         });
         i += 1;
     }
@@ -53,6 +54,7 @@ function index(pestanias, pestania) {
         $(cpestanna).css('display','');
         $(pestanna1).css('background','dimgray');
         $(pestanna1).css('padding-bottom','2px');
+        $(pestanna1).css('width','20%');
     });
 
     try {
@@ -64,12 +66,13 @@ function index(pestanias, pestania) {
         }
 
         act.appendChild(tact);
+       
         var editor=CodeMirror(act, {
             lineNumbers: true,
             value: tact.value,
             matchBrackets: true,
             styleActiveLine: true,
-            theme: "eclipse",
+                theme: "eclipse",
             mode: "text/x-java"
         }).on('change', editor => {
             tact.value=editor.getValue();
@@ -86,7 +89,7 @@ function agregar() {
     var a=document.createElement("a");
     a.setAttribute('id','a'+x);
     a.setAttribute('href', 'javascript:index("pestanas","pestana'+x+'")');
-    a.text='pestana'+x;
+    a.text='Tab'+x;
     li.appendChild(a);
     lu.appendChild(li);
     index("pestanas","pestana"+x);
@@ -94,15 +97,18 @@ function agregar() {
     var contenido=document.getElementById("contenidopestanas");
     var divp=document.createElement("div");
     divp.setAttribute('id','cpestana'+x);
+    
+
     var ta=document.createElement("textarea");
     ta.setAttribute('id','textarea'+x);
     ta.setAttribute('name','textarea'+x);
     ta.setAttribute('class','ta');
     ta.setAttribute('style','display:none');
-    ta.cols=123;
-    ta.rows=30;
+    ta.cols=125;
+    ta.rows=50;
     divp.appendChild(ta);
     contenido.appendChild(divp);
+   
 
     var act=document.getElementById('cpestana'+x);
     var tact=document.getElementById('textarea'+x);
@@ -125,6 +131,8 @@ function quitar(){
         var contenido=document.getElementById("contenidopestanas");
         contenido.removeChild(document.getElementById(get_vent().replace("textarea","cpestana")));
         deletepes(get_vent());
+        contador --
+        get_vent()
     }catch(error){}
 }
 
@@ -160,9 +168,11 @@ function AbrirArchivo(files){
     var a=document.getElementById(get_vent().replace("textarea","a"));
     a.text=file.name;
     linkedlist(get_vent(),file.name);
+    
 
     var file_input=document.getElementById("fileInput");
     document.getElementById('fileInput').value="";
+    
 }
 
 function DescargarArchivo(){
@@ -582,6 +592,7 @@ function Scanner(Tokens, Errores, entrada){
 }
 //********************************ANALIZADOR SINTÁCTICO**************************************
 function Parser(TokensEntrada, Errores, nodes, edges){
+    let cont_graf = 1;
     let Tokens = []
     for(let token of TokensEntrada){
         Tokens.push(token)
@@ -715,9 +726,10 @@ function Parser(TokensEntrada, Errores, nodes, edges){
                     temporal = x[1]
                     for(let son of x[1]){
                         if(var1 != son && son != 'Epsilon'){
-                            nodes.push({id: var1, label: var1, group: var2})
-                            nodes.push({id: son, label: son, group: var2})
-                            edges.push({from: var1, to: son}) //se agrega el enlace del grafo!!!!!!!!!!!!!!!!
+                            nodes.push({id: var1+cont_graf, label: var1, group: var2})
+                            nodes.push({id: son+cont_graf, label: son, group: var2})
+                            edges.push({from: var1+cont_graf, to: son+cont_graf}) //se agrega el enlace del grafo!!!!!!!!!!!!!!!!
+                            cont_graf++
                         }   
                     }
                 }
@@ -727,10 +739,20 @@ function Parser(TokensEntrada, Errores, nodes, edges){
     }
 }
 //********************************ANALIZAR ENTRADA*******************************************
-function Analizar(){
+function AnalizarPatita(){
+
+    //variable grafica
+    var salida_grafo = document.getElementById('grafo');
+    var grafi = 'digraph  {po -> b}'
+    d3.select(salida_grafo).graphviz().renderDot(grafi);
+
     //entrada
     var ta=document.getElementById(get_vent());
     var contenido=ta.value;//texto de vent actual
+    ta.setSize(34, 300);
+
+    
+    
     //se declaran los arrays
     var Tokens = new Array()
     var Tokens_Parser = new Array()
@@ -1105,7 +1127,7 @@ function CrearToken(line, column, text){
     tk_nuevo.texto = text
     return tk_nuevo
 }
-//extraer comentarios
+//extraer comentarios 
 function ExtraerComentarios(Tokens, Comentarios) {
     for(i = 0;i < Tokens.length; i++){
         if(Tokens[i].nombre == 'ComentarioUni' || Tokens[i].nombre == 'ComentarioMulti'){

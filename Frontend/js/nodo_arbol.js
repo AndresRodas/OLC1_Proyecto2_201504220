@@ -1,6 +1,7 @@
 class Nodo_Arbol{
     constructor(valor, tipo){
-        this.valor = valor
+        this.id = 0;
+        this.valor = valor 
         this.tipo = tipo
         this.hijos = []
     }

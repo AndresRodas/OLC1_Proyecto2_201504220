@@ -1,31 +1,72 @@
 body {
-    background: darkgrey;
+    background: #5b69d6;
+}
+
+.consol {
+    background: #111111;
+    font-family: cursive;
+    color: lightgoldenrodyellow;
+    font-size: 18px;
+    font-family: "Ubuntu Mono";
+    text-align: left;
 }
 
 .ta {
     resize: none;
+    font-family: "Ubuntu Mono";
+    line-height: 1.2%;
+    height: 3.6%;
 }
 
 .btnp {
     border: none;
     background: #5b69d6;
-    color: #f2f2f2;
+    color: #111111;
     padding: 5px;
-    font-size: 14px;
+    font-size: 20px;
     border-radius: 2px;
-    position: relative;
+    position: center;
     box-sizing: border-box;
     transition: all 500ms ease;
+    size: initial;
+    box-shadow: 0 10px 10px 0px rgba(0, 0, 0, 0.8);
+    font-family: "Ubuntu Mono";
+}
+
+.h3 { 
+    display:inline;
 }
 
 .contenedor{
     width: 1080px;
     margin: auto;
-    background:#272829;
+    background: #9ea5d6;;
+    color: #111111;
+    border-color: #22556e;
+    padding: 20px 15px 50px 50px;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px 0px rgba(0, 0, 0, 0.8);
+    font-family: "Ubuntu Mono";
+}
+.contenedor2 {
+    width: 1080px;
+    margin: auto;
+    background: #9ea5d6;;
     color: rgb(0, 112, 163);
     padding: 20px 15px 50px 50px;
     border-radius: 10px;
     box-shadow: 0 10px 10px 0px rgba(0, 0, 0, 0.8);
+}
+.contenedor3 {
+    width: 1080px;
+    margin: auto;
+    background: #9ea5d6;;
+    color: #111111;
+    padding: 20px 15px 50px 50px;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px 0px rgba(0, 0, 0, 0.8);
+    font-family: "Ubuntu Mono";
+    white-space:nowrap;
 }
 
 .contenedor .titulo{
