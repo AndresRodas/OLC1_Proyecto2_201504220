@@ -1,46 +1,9 @@
 /******************************EXPORTACIONES*******************************/
 %{
-    //const Tokens = require('./javascript');
     const Nodo = require('./nodo_arbol');
-    //const Recorrer = require('./recorrer_arbol');
-    /*
-
-EXP : P LP ;
-
-LP : Or P LP
-    | And P LP
-    | Xor P LP
-    | ;
-    
-R : E RP;
-
-RP : SMayor E RP
-    | SMenor E RP
-    | SMayorIgual E RP
-    | SMenorIgual E RP
-    | SComp E RP 
-    | SDif E RP 
-    | ;
-
-E : T EP;
-
-EP : SMas SMA
-    | SMenos SME
-    | ;
-    
-T :  F TP ;
-
-TP : SPor F TP
-    | SDiv F TP
-    | ;
-
-SMA : T EP
-    | SMas ;
-
-SME : T EP
-    | SMenos ;
-
-    */
+    //const Tokens = require('./Tokens');
+    tk_tokens = []
+    tk_errores = []
 %}
 /******************************LEXICO***************************************/
 %lex
@@ -48,78 +11,76 @@ SME : T EP
 %%
 \s+
 
-"{"                     %{ return 'LAbre'; %}
-"}"                     %{ return 'LCierra'%}
-"("                     %{ return 'PAbre'%}
-")"                     %{ return 'PCierra'%}
-"++"                     %{ return 'SInc'%}
-"--"                     %{ return 'SDec'%}
-"+"                     %{ return 'SMas'%}
-"-"                     %{ return 'SMenos'%}
-"*"                     %{ return 'SPor'%}
-">="                     %{ return 'SMayorIgual'%}
-"<="                     %{ return 'SMenorIgual'%}
-">"                     %{ return 'SMayor'%}
-"<"                     %{ return 'SMenor'%}
-"!="                     %{ return 'SDif'%}
-"=="                     %{ return 'SComp'%}
-"="                     %{ return 'SIgual'%}
-"!"                     %{ return 'Not'%}
-"&&"                     %{ return 'And'%}
-"||"                     %{ return 'Or'%}
-"^"                     %{ return 'Xor'%}
+"{"                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'LAbre'}); return 'LAbre'; %}
+"}"                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'LCierra'}); return 'LCierra'%}
+"("                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'PAbre'}); return 'PAbre'%}
+")"                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'PCierra'}); return 'PCierra'%}
+"++"                    %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'SInc'}); return 'SInc'%}
+"--"                    %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'SDec'}); return 'SDec'%}
+"+"                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'SMas'}); return 'SMas'%}
+"-"                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'SMenos'}); return 'SMenos'%}
+"*"                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'SPor'}); return 'SPor'%}
+">="                    %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'SMayorIgual'}); return 'SMayorIgual'%}
+"<="                    %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'SMenorIgual'}); return 'SMenorIgual'%}
+">"                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'SMayor'}); return 'SMayor'%}
+"<"                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'SMenor'}); return 'SMenor'%}
+"!="                    %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'SDif'}); return 'SDif'%}
+"=="                    %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'SComp'}); return 'SComp'%}
+"="                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'SIgual'}); return 'SIgual'%}
+"!"                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Not'}); return 'Not'%}
+"&&"                    %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'And'}); return 'And'%}
+"||"                    %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Or'}); return 'Or'%}
+"^"                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Xor'}); return 'Xor'%}
+"["                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'CAbre'}); return 'CAbre'%}
+"]"                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'CCierra'}); return 'CCierra'%}
+","                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'SComa'}); return 'SComa'%}
+"."                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'SPunto'}); return 'SPunto'%}
+";"                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Pyc'}); return 'Pyc'%}
+"interface"             %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rinterfaz'}); return 'Rinterfaz'%}
+"if"                    %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rif'}); return 'Rif'%}
+"else"                  %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Relse'}); return 'Relse'%}
+"public"                %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rpublic'}); return 'Rpublic'%}
+"import"                %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rimport'}); return 'Rimport'%}
+"package"               %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rpackage'}); return 'Rpackage'%}
+"class"                 %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rclass'}); return 'Rclass'%}
+"interfaz"              %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rinterfaz'}); return 'Rinterfaz'%}
+"void"                  %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rvoid'}); return 'Rvoid'%}
+"int"                   %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rint'}); return 'Rint'%}
+"double"                %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rdouble'}); return 'Rdouble'%}
+"char"                  %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rchar'}); return 'Rchar'%}
+"String"                %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rstring'}); return 'Rstring'%}
+"boolean"               %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rboolean'}); return 'Rboolean'%}
+"for"                   %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rfor'}); return 'Rfor'%}
+"while"                 %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rwhile'}); return 'Rwhile'%}
+"System"                %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rsystem'}); return 'Rsystem'%}
+"out"                   %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rout'}); return 'Rout'%}
+"println"               %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rprintln'}); return 'Rprintln'%}
+"print"                 %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rprint'}); return 'Rprint'%}
+"do"                    %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rdo'}); return 'Rdo'%}
+"break"                 %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rbreak'}); return 'Rbreak'%}
+"continue"              %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rcontinue'}); return 'Rcontinue'%}
+"return"                %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rreturn'}); return 'Rreturn'%}
+"static"                %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rstatic'}); return 'Rstatic'%}
+"main"                  %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rmain'}); return 'Rmain'%}
+"true"                  %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rtrue'}); return 'Rtrue'%}
+"false"                 %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rfalse'}); return 'Rfalse'%}
+"switch"                %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Rswitch'}); return 'Rswitch'%}
 
-"["                     %{ return 'CAbre'%}
-"]"                     %{ return 'CCierra'%}
-","                     %{ return 'SComa'%}
-"."                     %{ return 'SPunto'%}
-";"                     %{ return 'Pyc'%}
+[0-9]+("."[0-9]+)?\b      %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Numero'}); return 'Numero'%}
+[a-zA-Z]([a-zA-Z_0-9])*   %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Identificador'}); return 'Identificador'%}
 
-"interface"             %{ return 'Rinterfaz'%}
-"if"                    %{ return 'Rif'%}
-"else"                  %{ return 'Relse'%}
-"public"                %{ return 'Rpublic'%}
-"import"                %{ return 'Rimport'%}
-"package"               %{ return 'Rpackage'%}
-"class"                 %{ return 'Rclass'%}
-"interfaz"              %{ return 'Rinterfaz'%}
-"void"                  %{ return 'Rvoid'%}
-"int"                  %{ return 'Rint'%}
-"double"                  %{ return 'Rdouble'%}
-"char"                  %{ return 'Rchar'%}
-"String"                  %{ return 'Rstring'%}
-"boolean"                  %{ return 'Rboolean'%}
-"for"                  %{ return 'Rfor'%}
-"while"                  %{ return 'Rwhile'%}
-"System"                  %{ return 'Rsystem'%}
-"out"                  %{ return 'Rout'%}
-"println"                  %{ return 'Rprintln'%}
-"print"                  %{ return 'Rprint'%}
-"do"                  %{ return 'Rdo'%}
-"break"                  %{ return 'Rbreak'%}
-"continue"                  %{ return 'Rcontinue'%}
-"return"                  %{ return 'Rreturn'%}
-"static"                  %{ return 'Rstatic'%}
-"main"                  %{ return 'Rmain'%}
-"true"                  %{ return 'Rtrue'%}
-"false"                  %{ return 'Rfalse'%}
-"switch"                  %{ return 'Rswitch'%}
+"//"[\n]*                %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'ComentarioUni'});%}
+[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]  %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'ComentarioMulti'}); %}
 
-[0-9]+("."[0-9]+)?\b      %{ return 'Numero'%}
-[a-zA-Z]([a-zA-Z_0-9])*   %{ return 'Identificador'%}
+[\"][^\\\"]*([\\][\\\"ntr][^\\\"]*)*[\"] %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'Texto'}); return 'Texto'%}
 
-"//"[\n]*                %{ yytext.substr(1,yyleng); return 'ComentarioUni'%}
-[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]  %{ console.log(yytext); return 'ComentarioMulti'%}
-
-[\"][^\\\"]*([\\][\\\"ntr][^\\\"]*)*[\"] %{ console.log(yytext); return 'Texto'%}
-
-"/"                     %{ return 'SDiv'%}
+"/"                     %{ tk_tokens.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext,nombre:'SDiv'}); return 'SDiv'%}
 
 [ \t\n\r\f]             %{ /*ignorando*/ %}
 
 <<EOF>>                 %{ return 'EOF'; %}
 
-.                       %{  console.log('Error: '+yytext+', en linea: '+yylloc.first_line+', y col: '+yylloc.first_column);%}
+.                       %{  tk_errores.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext});%}
 /lex
 
 
@@ -136,7 +97,8 @@ SME : T EP
 INICIO : TODO EOF {$$ = new Nodo('RAIZ','');
                 $$.addHijo($1);
                 //let temp = new Recorrer($$);
-                
+                $$.addTokens(tk_tokens);
+                $$.addErrores(tk_errores);
                 return $$;
                 };
 
@@ -145,7 +107,7 @@ TODO : Rpublic S  TODO {$$ = new Nodo('INICIO','');
                         $$.addHijo($2);
                         $$.addHijo($3);
                         }
-    | error LCierra {console.log('Error sintactico en linea: '+this._$.first_line + ', y columna: '+this._$.first_column)}
+    | LCierra {console.log('Error sintactico en linea: '+this._$.first_line + ', y columna: '+this._$.first_column)}
     | ;
         
 S : Rclass Identificador LAbre CONTCLASS LCierra {$$ = new Nodo('S','');
@@ -572,7 +534,7 @@ SALIDA : Rprint PAbre MSG PCierra Pyc {$$ = new Nodo('END-PRINT','');
                 $$.addHijo(new Nodo($4,''));
                 $$.addHijo(new Nodo($5,''));
                 } 
-        | Rprintln PAbre MSG PCierra PyC {$$ = new Nodo('END-PRINT','');
+        | Rprintln PAbre MSG PCierra Pyc {$$ = new Nodo('END-PRINT','');
                 $$.addHijo(new Nodo($1,''));
                 $$.addHijo(new Nodo($2,''));
                 $$.addHijo($3);

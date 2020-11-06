@@ -1,211 +1,4 @@
 
-var contador=1;
-function get_cont(){
-    return contador++;
-}
-
-var vent_focus="pestana1";
-function get_vent(){
-    return vent_focus;
-}
-
-function set_vent(vent){
-    vent_focus=vent;
-}
-
-var lista=new Array();
-function linkedlist(pestana,nombre) {
-    var obj=new Object();
-    obj.pestana=pestana;
-    obj.nombre=nombre;
-    lista.push(obj);
-}
-
-function deletepes(pestana){
-    for(var i=0;i<lista.length;i++){
-        if(lista[i].pestana==pestana){
-            delete lista[i];
-        }
-    }
-}
-
-/*--------------------------------------Funcion Al Cambiar Ventana---------------------------------------*/
-function index(pestanias, pestania) {
-    var id=pestania.replace('pestana','');
-    set_vent('textarea'+id);
-
-    var pestanna1 = document.getElementById(pestania);
-    var listaPestannas = document.getElementById(pestanias);
-    var cpestanna = document.getElementById('c'+pestania);
-    var listacPestannas = document.getElementById('contenido'+pestanias);
-
-    var i=0;
-    while (typeof listacPestannas.getElementsByTagName('div')[i] != 'undefined'){
-        $(document).ready(function(){
-            $(listacPestannas.getElementsByTagName('div')[i]).css('display','none');
-            $(listaPestannas.getElementsByTagName('li')[i]).css('background','');
-            $(listaPestannas.getElementsByTagName('li')[i]).css('padding-bottom','');
-
-        });
-        i += 1;
-    }
-
-    $(document).ready(function(){
-        $(cpestanna).css('display','');
-        $(pestanna1).css('background','dimgray');
-        $(pestanna1).css('padding-bottom','2px');
-        $(pestanna1).css('width','20%');
-    });
-
-    try {
-        var act=document.getElementById('cpestana'+id);
-        var tact=document.getElementById('textarea'+id);
-
-        while (act.firstChild) {
-            act.removeChild(act.firstChild);
-        }
-
-        act.appendChild(tact);
-       
-        var editor=CodeMirror(act, {
-            lineNumbers: true,
-            value: tact.value,
-            matchBrackets: true,
-            styleActiveLine: true,
-                theme: "eclipse",
-            mode: "text/x-java"
-        }).on('change', editor => {
-            tact.value=editor.getValue();
-        });
-    }catch(error) {}
-}
-
-/*---------------------------------------Funcion Agregar Pestania----------------------------------------*/
-function agregar() {
-    var x=get_cont();
-    var lu=document.getElementById("lista");
-    var li=document.createElement("li");
-    li.setAttribute('id','pestana'+x);
-    var a=document.createElement("a");
-    a.setAttribute('id','a'+x);
-    a.setAttribute('href', 'javascript:index("pestanas","pestana'+x+'")');
-    a.text='Tab'+x;
-    li.appendChild(a);
-    lu.appendChild(li);
-    index("pestanas","pestana"+x);
-
-    var contenido=document.getElementById("contenidopestanas");
-    var divp=document.createElement("div");
-    divp.setAttribute('id','cpestana'+x);
-    
-
-    var ta=document.createElement("textarea");
-    ta.setAttribute('id','textarea'+x);
-    ta.setAttribute('name','textarea'+x);
-    ta.setAttribute('class','ta');
-    ta.setAttribute('style','display:none');
-    ta.cols=125;
-    ta.rows=50;
-    divp.appendChild(ta);
-    contenido.appendChild(divp);
-   
-
-    var act=document.getElementById('cpestana'+x);
-    var tact=document.getElementById('textarea'+x);
-    var editor=CodeMirror(act, {
-        lineNumbers: true,
-        value: tact.value,
-        matchBrackets: true,
-        styleActiveLine: true,
-        theme: "eclipse",
-        mode: "text/x-java"
-    }).on('change', editor => {
-        tact.value=editor.getValue();
-    });
-}
-
-function quitar(){
-    try{
-        var lu=document.getElementById("lista");
-        lu.removeChild(document.getElementById(get_vent().replace("textarea","pestana")));
-        var contenido=document.getElementById("contenidopestanas");
-        contenido.removeChild(document.getElementById(get_vent().replace("textarea","cpestana")));
-        deletepes(get_vent());
-        contador --
-        get_vent()
-    }catch(error){}
-}
-
-
-/*-----------------------------------------------File---------------------------------------------------*/
-function AbrirArchivo(files){
-    var file = files[0];
-    var reader = new FileReader();
-    reader.onload = function (e) {
-        var act=document.getElementById(get_vent().replace("textarea","cpestana"));
-        var tact=document.getElementById(get_vent());
-        tact.value = e.target.result;
-
-        while (act.firstChild) {
-            act.removeChild(act.firstChild);
-        }
-
-        act.appendChild(tact);
-        var editor=CodeMirror(act, {
-            lineNumbers: true,
-            value: tact.value,
-            matchBrackets: true,
-            styleActiveLine: true,
-            theme: "eclipse",
-            mode: "text/x-java"
-        }).on('change', editor => {
-            tact.value=editor.getValue();
-        });
-    };
-    reader.readAsText(file);
-    file.clear;
-
-    var a=document.getElementById(get_vent().replace("textarea","a"));
-    a.text=file.name;
-    linkedlist(get_vent(),file.name);
-    
-
-    var file_input=document.getElementById("fileInput");
-    document.getElementById('fileInput').value="";
-    
-}
-
-function DescargarArchivo(){
-    var ta=document.getElementById(get_vent());
-    var contenido=ta.value;//texto de vent actual
-
-    //formato para guardar el archivo
-    var hoy=new Date();
-    var dd=hoy.getDate();
-    var mm=hoy.getMonth()+1;
-    var yyyy=hoy.getFullYear();
-    var HH=hoy.getHours();
-    var MM=hoy.getMinutes();
-    var formato=get_vent().replace("textarea","")+"_"+dd+"_"+mm+"_"+yyyy+"_"+HH+"_"+MM;
-
-    var nombre="Archivo"+formato+".java";//nombre del archivo
-    var file=new Blob([contenido], {type: 'text/plain'});
-
-    if(window.navigator.msSaveOrOpenBlob){
-        window.navigator.msSaveOrOpenBlob(file, nombre);
-    }else{
-        var a=document.createElement("a"),url=URL.createObjectURL(file);
-        a.href=url;
-        a.download=nombre;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(function(){
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);  
-        },0); 
-    }
-}
-
 //********************************ANALIZADOR LEXICO******************************************
 function Scanner(Tokens, Errores, entrada){
     let Signos = new Map([['Pyc',';'],['SComa',','],['LCierra','}'],['LAbre','{'],['PCierra',')'],['PAbre','('],['SPunto','.'],['SMas','+'],['SPor','*'],['SMenos','-'],['CCierra',']'],['CAbre','['],['Xor','^']])
@@ -740,19 +533,11 @@ function Parser(TokensEntrada, Errores, nodes, edges){
 }
 //********************************ANALIZAR ENTRADA*******************************************
 function AnalizarPatita(){
-
-    //variable grafica
-    var salida_grafo = document.getElementById('grafo');
-    var grafi = 'digraph  {po -> b}'
-    d3.select(salida_grafo).graphviz().renderDot(grafi);
-
+    console.log('Python analizer run!')
     //entrada
-    var ta=document.getElementById(get_vent());
-    var contenido=ta.value;//texto de vent actual
-    ta.setSize(34, 300);
+    var ta = document.getElementById(get_vent());
+    var contenido = ta.value;
 
-    
-    
     //se declaran los arrays
     var Tokens = new Array()
     var Tokens_Parser = new Array()
@@ -784,18 +569,21 @@ function AnalizarPatita(){
     Imprimir(Errores, 'Errores')
 
     //realizar Grafo de analisis sintactico
-    Grafo(nodes, edges)
+    //Grafo(nodes, edges)
+    
+    console.log(Tokens)
+    //se traduce a python
+    var TokensPython = TraducirPy(Tokens)
+    console.log(TokensPython)
 
-    var TokensPython = Traducir(Tokens)
     var salida = ''
     for(let tkp of TokensPython){
-        
         salida = salida + tkp.texto
     } 
     console.log(salida)
 }   
 //********************************TRADUCIR A PYTHON******************************************
-function Traducir(Tokens) {
+function TraducirPy(Tokens) {
     let Tk_Py = []
     let contador_llave = 1
     let tk_nuevo = {
@@ -1105,14 +893,12 @@ function Traducir(Tokens) {
             default:
                 break;
         }
-    } 
-    
+    }
     if (main){
         let main_text = 'if __name__ = \"__main__\":\n main()'
         tk_nuevo = CrearToken(0, 0, main_text)
         Tk_Py.push(tk_nuevo)
     }
-
     return Tk_Py
 }
 //Aqui se crea un token nuevo para python
@@ -1200,8 +986,7 @@ function Grafo(nodes, edges) {
         layout:{
             hierarchical:{
                 direction: "UD",
-                sortMethod: "directed",
-                shakeTowards: 'leaves'
+                sortMethod: "directed"
             },
         },
         edges: {

@@ -4,12 +4,20 @@ class Nodo_Arbol{
         this.valor = valor 
         this.tipo = tipo
         this.hijos = []
+        this.tokens = []
+        this.errores = []
     }
     getValor(){
         this.valor
     }
     addHijo(hijo){
         this.hijos.push(hijo)
+    }
+    addTokens(token){
+        this.tokens = token.slice();
+    }
+    addErrores(error){
+        this.errores = error.slice();
     }
 }
 
