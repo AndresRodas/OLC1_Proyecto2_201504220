@@ -204,7 +204,15 @@ function DescargarArchivo(){
     }
 }
 
-async function TraducirJavascript(){
+
+
+function TraducirJavascript(){
+
+    let tk = []
+    let err = []
+    let trd = ''
+    let gra = ''
+
     //Definicion de la entrada
     var ta = document.getElementById(get_vent());
     var contenido = ta.value; 
@@ -221,53 +229,70 @@ async function TraducirJavascript(){
     //Peticiones post
     fetch('http://localhost:3666', options)
 
-    //Peticiones get: Tokens
-    await fetch('http://localhost:3666/tokens')
-    .then(response => response.json() )
-    .then(data =>  {
-        console.log('LISTA DE TOKENS')
-        console.log(data)
-    }).catch(err =>  console.log(err))
+    //setTimeout(getJs(),5000);
+    setTimeout(function () {
+        
+        console.log('Pasaron dos segundos')
+        //Peticiones get: Tokens
+        fetch('http://localhost:3666/tokens')
+        .then(response => response.json() )
+        .then(data =>  {
+            console.log('LISTA DE TOKENS')
+            console.log(data)
+            tk = data.slice()
+        }).catch(err =>  console.log(err))
 
-    //Peticiones get: Traduccion
-    await fetch('http://localhost:3666/errores')
-    .then(response => response.json() )
-    .then(data =>  {
-        console.log('LISTA DE ERRORES')
-        console.log(data)
-    }).catch(err =>  console.log(err))
+        //Peticiones get: Traduccion
+        fetch('http://localhost:3666/errores')
+        .then(response => response.json() )
+        .then(data =>  {
+            console.log('LISTA DE ERRORES')
+            console.log(data)
+            err = data.slice()
+        }).catch(err =>  console.log(err))
 
-    //Peticiones get: Errores
-    await fetch('http://localhost:3666/traduccion')
-    .then(response => response.json() )
-    .then(data =>  {
-        console.log('TRADUCCION A JAVASCRIPT')
-        console.log(data)
-    }).catch(err =>  console.log(err))
+        //Peticiones get: Errores
+        fetch('http://localhost:3666/traduccion')
+        .then(response => response.json() )
+        .then(data =>  {
+            console.log('TRADUCCION A JAVASCRIPT')
+            console.log(data)
+            trd = data[0]
+        }).catch(err =>  console.log(err))
 
-    //Peticiones get: grafo
-    await fetch('http://localhost:3666/grafo')
-    .then(response => response.json() )
-    .then(data =>  {
-        console.log('GRAFO')
-        console.log(data)
-    }).catch(err =>  console.log(err))
+        //Peticiones get: grafo
+        fetch('http://localhost:3666/grafo')
+        .then(response => response.json() )
+        .then(data =>  {
+            console.log('GRAFO')
+            console.log(data)
+            gra = data[0]
+        }).catch(err =>  console.log(err))
 
+    },2000);
 
-    //Peticiones get: 
-    // fetch('http://localhost:3667asda')
-    // .then(response => response.json() )
-    // .then(data =>  {
+    setTimeout(function () {
+        //Graficar   
+        var salida_grafo = document.getElementById('grafo');
+        d3.select(salida_grafo).graphviz().renderDot(gra); 
+
+    },1000);
+
     //     let elemento = document.getElementById('grafo')
     //     elemento.innerHTML = `
     //         <p>${data[0]}</p>
     //     `;
-    //     console.log(data)
-    // }).catch(err =>  console.log(err))
 
 }
 
-async function TraducirPython(){
+function TraducirPython(){
+
+    let tks = []
+    let err = []
+    let tra = ''
+    let nod = []
+    let edg = []
+
     //Definicion de la entrada
     var ta = document.getElementById(get_vent());
     var contenido = ta.value; 
@@ -282,57 +307,124 @@ async function TraducirPython(){
     }
 
     //Peticiones post
-    await fetch('http://localhost:3667', options)
+    fetch('http://localhost:3667', options)
 
-    //Peticiones get: Tokens
-    await fetch('http://localhost:3667/tokens')
-    .then(response => response.json() )
-    .then(data =>  {
-        console.log('LISTA DE TOKENS')
-        console.log(data)
-    }).catch(err =>  console.log(err))
+    setTimeout(function () {
+        //Peticiones get: Tokens
+        fetch('http://localhost:3667/tokens')
+        .then(response => response.json() )
+        .then(data =>  {
+            console.log('LISTA DE TOKENS')
+            console.log(data)
+            tks = data.slice()
+        }).catch(err =>  console.log(err))
+    
+        //Peticiones get: Traduccion
+        fetch('http://localhost:3667/traduccion')
+        .then(response => response.json() )
+        .then(data =>  {
+            console.log('TRADUCCION A PYTHON')
+            console.log(data)
+            tra = data[0]
+        }).catch(err =>  console.log(err))
+    
+        //Peticiones get: Errores
+        fetch('http://localhost:3667/errores')
+        .then(response => response.json() )
+        .then(data =>  {
+            console.log('LISTA DE ERRORES')
+            console.log(data)
+            err = data.slice()
+        }).catch(err =>  console.log(err))
+    
+        //Peticiones get: Nodos
+        fetch('http://localhost:3667/nodes')
+        .then(response => response.json() )
+        .then(data =>  {
+            console.log('LISTA DE NODOS')
+            console.log(data)
+            nod = data.slice()
+        }).catch(err =>  console.log(err))
+    
+        //Peticiones get: Edges
+        fetch('http://localhost:3667/edges')
+        .then(response => response.json() )
+        .then(data =>  {
+            console.log('LISTA DE EDGES')
+            console.log(data)
+            edg = data.slice()
+        }).catch(err =>  console.log(err))
+        
+    },1000);
 
-    //Peticiones get: Traduccion
-    await fetch('http://localhost:3667/traduccion')
-    .then(response => response.json() )
-    .then(data =>  {
-        console.log('TRADUCCION A PYTHON')
-        console.log(data)
-    }).catch(err =>  console.log(err))
+    setTimeout(function () {
+        //Graficar   
+       
+        GrafoPy(nod, edg)
 
-    //Peticiones get: Errores
-    await fetch('http://localhost:3667/errores')
-    .then(response => response.json() )
-    .then(data =>  {
-        console.log('LISTA DE ERRORES')
-        console.log(data)
-    }).catch(err =>  console.log(err))
+    },1000);
 
-    //Peticiones get: Nodos
-    await fetch('http://localhost:3667/nodes')
-    .then(response => response.json() )
-    .then(data =>  {
-        console.log('LISTA DE NODOS')
-        console.log(data)
-    }).catch(err =>  console.log(err))
+}
 
-    //Peticiones get: Edges
-    await fetch('http://localhost:3667/edges')
-    .then(response => response.json() )
-    .then(data =>  {
-        console.log('LISTA DE EDGES')
-        console.log(data)
-    }).catch(err =>  console.log(err))
+//grafo 
+function GrafoPy(nodes, edges) { 
+    nodes = NodosRepetidos(nodes)
+    edges = EdgesRepetidos(edges)  
+    var options = {
+        layout:{
+            hierarchical:{
+                direction: "UD",
+                sortMethod: "directed"
+            },
+        },
+        edges: {
+            arrows: "to",
+        },
+        width:  '1000px',
+        height: '1000px',
+    }; 
+    // create a network
+    var container = document.getElementById('grafo');
+    var data = {
+        nodes: nodes,
+        edges: edges
+    };
+    var network = new vis.Network(container, data, options);
 
-
-    //Peticiones get: 
-    // fetch('http://localhost:3667asda')
-    // .then(response => response.json() )
-    // .then(data =>  {
-    //     let elemento = document.getElementById('grafo')
-    //     elemento.innerHTML = `
-    //         <p>${data[0]}</p>
-    //     `;
-    //     console.log(data)
-    // }).catch(err =>  console.log(err))
+}
+//quitar nodos repetidos
+function NodosRepetidos(nodes) {
+    let nodes_rep = [];
+    for(let nod of nodes){
+        let flag = true;
+        for(let nod_rep of nodes_rep){
+            if(nod.id == nod_rep.id){
+                flag = false;
+            }
+        }
+        if (flag){
+            nodes_rep.push(nod)
+        }
+    }
+    nodes = []
+    nodes = nodes_rep
+    return nodes
+}
+//quitar edges repetidos
+function EdgesRepetidos(edges) {
+    let edges_rep = [];
+    for(let edg of edges){
+        let flag = true;
+        for(let edg_rep of edges_rep){
+            if(edg.from == edg_rep.from && edg.to == edg_rep.to ){
+                flag = false;
+            }
+        }
+        if (flag){
+            edges_rep.push(edg)
+        }
+    }
+    edges = []
+    edges = edges_rep
+    return edges
 }

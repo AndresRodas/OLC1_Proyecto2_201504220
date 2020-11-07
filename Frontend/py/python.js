@@ -619,14 +619,15 @@ function TraducirPy(Tokens) {
                 contador_llave --
                 break;
             case 'Rpublic':
+            
                 if (Tokens[i+1].nombre == 'Rclass' || Tokens[i+1].nombre == 'Rinterface'){
                     tk_nuevo = CrearToken(Tokens[i].linea, Tokens[i].columna, 'class')
                     Tk_Py.push(tk_nuevo)
-                    Tokens.splice(i+1,1)
+                    i++
                 }else if (Tokens[i+1].nombre == 'Rstring' || Tokens[i+1].nombre == 'Rint' || Tokens[i+1].nombre == 'Rchar' || Tokens[i+1].nombre == 'Rboolean' || Tokens[i+1].nombre == 'Rdouble' || Tokens[i+1].nombre == 'Rvoid' || Tokens[i+1].nombre == 'Rstatic'){
                     tk_nuevo = CrearToken(Tokens[i].linea, Tokens[i].columna, 'self')
                     Tk_Py.push(tk_nuevo)
-                    Tokens.splice(i+1,1)
+                    i++
                 }
                 break;
             case 'PAbre':
@@ -937,42 +938,7 @@ function ExtraerComentarios(Tokens, Comentarios) {
         }
     }
 }
-//quitar nodos repetidos
-function NodosRepetidos(nodes) {
-    let nodes_rep = [];
-    for(let nod of nodes){
-        let flag = true;
-        for(let nod_rep of nodes_rep){
-            if(nod.id == nod_rep.id){
-                flag = false;
-            }
-        }
-        if (flag){
-            nodes_rep.push(nod)
-        }
-    }
-    nodes = []
-    nodes = nodes_rep
-    return nodes
-}
-//quitar edges repetidos
-function EdgesRepetidos(edges) {
-    let edges_rep = [];
-    for(let edg of edges){
-        let flag = true;
-        for(let edg_rep of edges_rep){
-            if(edg.from == edg_rep.from && edg.to == edg_rep.to ){
-                flag = false;
-            }
-        }
-        if (flag){
-            edges_rep.push(edg)
-        }
-    }
-    edges = []
-    edges = edges_rep
-    return edges
-}
+
 //imprimir
 function Imprimir(Lista, str){
     console.log('Lista de '+str+':')
@@ -986,32 +952,7 @@ function Imprimir(Lista, str){
         console.log(token.linea+', '+token.columna+', '+token.texto+', '+token.nombre)
     }
 }
-//grafo
-function Grafo(nodes, edges) { 
-    nodes = NodosRepetidos(nodes)
-    edges = EdgesRepetidos(edges)  
-    var options = {
-        layout:{
-            hierarchical:{
-                direction: "UD",
-                sortMethod: "directed"
-            },
-        },
-        edges: {
-            arrows: "to",
-        },
-        width:  '1000px',
-        height: '1000px',
-    }; 
-    // create a network
-    var container = document.getElementById('grafo');
-    var data = {
-        nodes: nodes,
-        edges: edges
-    };
-    var network = new vis.Network(container, data, options);
 
-}
 
 // aqui se inicializa el servidor
 app.use(cors())
@@ -1032,6 +973,7 @@ app.post('/', (req, res) => {
 //responder con Tokens 
 app.get('/tokens', async function (req, res) {
     //aqui se le manda lo que querramos
+
     res.send(Tokens)
     console.log('I got a Get')
 })

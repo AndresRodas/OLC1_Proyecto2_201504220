@@ -72,12 +72,12 @@
   }
 */
 var gramatica = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[2,4],$V1=[1,3],$V2=[1,4],$V3=[1,15],$V4=[2,11],$V5=[1,19],$V6=[1,17],$V7=[1,18],$V8=[1,20],$V9=[1,21],$Va=[1,23],$Vb=[2,8],$Vc=[1,35],$Vd=[1,32],$Ve=[1,30],$Vf=[1,31],$Vg=[1,33],$Vh=[1,34],$Vi=[5,6,8],$Vj=[1,50],$Vk=[1,49],$Vl=[6,8,10,16,27,31,33,34,35,46,47,48,49,50,51,52,60,78,79,80,84],$Vm=[1,67],$Vn=[1,69],$Vo=[1,62],$Vp=[1,68],$Vq=[1,70],$Vr=[1,71],$Vs=[2,26],$Vt=[1,78],$Vu=[1,79],$Vv=[1,80],$Vw=[18,19,56,57,58],$Vx=[18,19,56,57,58,62,63,64,65,66,67],$Vy=[18,19,56,57,58,62,63,64,65,66,67,69,70,71,72],$Vz=[18,19,56,57,58,62,63,64,65,66,67,69,70,71,72,74,75],$VA=[1,119],$VB=[1,123],$VC=[1,120],$VD=[1,121],$VE=[1,122],$VF=[2,90],$VG=[1,133],$VH=[2,44],$VI=[1,146],$VJ=[1,147],$VK=[1,148],$VL=[1,149],$VM=[1,150],$VN=[1,151],$VO=[1,152],$VP=[1,153],$VQ=[6,8,27,31,33,34,35],$VR=[8,10,16,27,31,33,34,35,46,47,48,49,50,51,52,60,78,79,80,84],$VS=[1,209],$VT=[2,50],$VU=[1,215];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,4],$V1=[2,4],$V2=[1,3],$V3=[1,16],$V4=[2,11],$V5=[1,20],$V6=[1,18],$V7=[1,19],$V8=[1,21],$V9=[1,22],$Va=[1,24],$Vb=[2,8],$Vc=[1,36],$Vd=[1,33],$Ve=[1,31],$Vf=[1,32],$Vg=[1,34],$Vh=[1,35],$Vi=[2,5,6],$Vj=[1,51],$Vk=[1,50],$Vl=[6,8,10,16,27,31,33,34,35,46,47,48,49,50,51,52,60,78,79,80,84],$Vm=[1,68],$Vn=[1,70],$Vo=[1,63],$Vp=[1,69],$Vq=[1,71],$Vr=[1,72],$Vs=[2,26],$Vt=[1,79],$Vu=[1,80],$Vv=[1,81],$Vw=[18,19,56,57,58],$Vx=[18,19,56,57,58,62,63,64,65,66,67],$Vy=[18,19,56,57,58,62,63,64,65,66,67,69,70,71,72],$Vz=[18,19,56,57,58,62,63,64,65,66,67,69,70,71,72,74,75],$VA=[1,120],$VB=[1,124],$VC=[1,121],$VD=[1,122],$VE=[1,123],$VF=[2,90],$VG=[1,134],$VH=[2,44],$VI=[1,147],$VJ=[1,148],$VK=[1,149],$VL=[1,150],$VM=[1,151],$VN=[1,152],$VO=[1,153],$VP=[1,154],$VQ=[6,8,27,31,33,34,35],$VR=[8,10,16,27,31,33,34,35,46,47,48,49,50,51,52,60,78,79,80,84],$VS=[1,210],$VT=[2,50],$VU=[1,216];
 var parser = {trace: function trace () { },
 yy: {},
 symbols_: {"error":2,"INICIO":3,"TODO":4,"EOF":5,"Rpublic":6,"S":7,"LCierra":8,"Rclass":9,"Identificador":10,"LAbre":11,"CONTCLASS":12,"Rinterfaz":13,"CONTINTER":14,"TIPO":15,"PAbre":16,"NEXTFUNC":17,"PCierra":18,"Pyc":19,"CCN":20,"DECLARACION":21,"MAIN":22,"FUNCION":23,"Rstatic":24,"Rvoid":25,"Rmain":26,"Rstring":27,"CAbre":28,"CCierra":29,"INSTRUCCIONES":30,"Rint":31,"NEXTDEC":32,"Rdouble":33,"Rchar":34,"Rboolean":35,"SIgual":36,"FINDEC":37,"EXP":38,"Texto":39,"PARAMETROS":40,"NEXTPARAM":41,"SComa":42,"CICLO":43,"CONTROL":44,"PRINT":45,"Rreturn":46,"Rbreak":47,"Rcontinue":48,"Rfor":49,"Rwhile":50,"Rdo":51,"Rif":52,"ELSE":53,"Relse":54,"ELSEIF":55,"Or":56,"And":57,"Xor":58,"P":59,"Not":60,"R":61,"SMayor":62,"SMenor":63,"SMayorIgual":64,"SMenorIgual":65,"SComp":66,"SDif":67,"E":68,"SMas":69,"SMenos":70,"SInc":71,"SDec":72,"T":73,"SPor":74,"SDiv":75,"F":76,"IDN":77,"Numero":78,"Rtrue":79,"Rfalse":80,"NEXTCALL":81,"RECIBE":82,"NEXTRECIBE":83,"Rsystem":84,"SPunto":85,"Rout":86,"SALIDA":87,"Rprint":88,"MSG":89,"Rprintln":90,"$accept":0,"$end":1},
 terminals_: {2:"error",5:"EOF",6:"Rpublic",8:"LCierra",9:"Rclass",10:"Identificador",11:"LAbre",13:"Rinterfaz",16:"PAbre",18:"PCierra",19:"Pyc",24:"Rstatic",25:"Rvoid",26:"Rmain",27:"Rstring",28:"CAbre",29:"CCierra",31:"Rint",33:"Rdouble",34:"Rchar",35:"Rboolean",36:"SIgual",39:"Texto",42:"SComa",46:"Rreturn",47:"Rbreak",48:"Rcontinue",49:"Rfor",50:"Rwhile",51:"Rdo",52:"Rif",54:"Relse",56:"Or",57:"And",58:"Xor",60:"Not",62:"SMayor",63:"SMenor",64:"SMayorIgual",65:"SMenorIgual",66:"SComp",67:"SDif",69:"SMas",70:"SMenos",71:"SInc",72:"SDec",74:"SPor",75:"SDiv",78:"Numero",79:"Rtrue",80:"Rfalse",84:"Rsystem",85:"SPunto",86:"Rout",88:"Rprint",90:"Rprintln"},
-productions_: [0,[3,2],[4,3],[4,1],[4,0],[7,5],[7,5],[14,8],[14,0],[12,2],[12,2],[12,0],[20,2],[20,2],[22,12],[21,3],[21,3],[21,3],[21,3],[21,3],[32,2],[32,1],[37,2],[37,2],[23,8],[17,1],[17,0],[15,1],[15,1],[15,1],[15,1],[15,1],[15,1],[40,3],[41,2],[41,0],[30,2],[30,2],[30,3],[30,2],[30,2],[30,4],[30,3],[30,3],[30,0],[43,10],[43,7],[43,9],[44,8],[53,6],[53,0],[55,4],[55,0],[38,3],[38,3],[38,3],[38,1],[59,2],[59,1],[61,3],[61,3],[61,3],[61,3],[61,3],[61,3],[61,1],[68,3],[68,3],[68,2],[68,2],[68,1],[73,3],[73,3],[73,1],[76,2],[76,1],[76,3],[76,1],[76,1],[77,3],[77,3],[77,0],[81,1],[81,0],[82,2],[82,2],[82,2],[82,2],[82,2],[83,2],[83,0],[45,5],[87,5],[87,5],[89,1],[89,1]],
+productions_: [0,[3,2],[4,3],[4,2],[4,0],[7,5],[7,5],[14,8],[14,0],[12,2],[12,2],[12,0],[20,2],[20,2],[22,12],[21,3],[21,3],[21,3],[21,3],[21,3],[32,2],[32,1],[37,2],[37,2],[23,8],[17,1],[17,0],[15,1],[15,1],[15,1],[15,1],[15,1],[15,1],[40,3],[41,2],[41,0],[30,2],[30,2],[30,3],[30,2],[30,2],[30,4],[30,3],[30,3],[30,0],[43,10],[43,7],[43,9],[44,8],[53,6],[53,0],[55,4],[55,0],[38,3],[38,3],[38,3],[38,1],[59,2],[59,1],[61,3],[61,3],[61,3],[61,3],[61,3],[61,3],[61,1],[68,3],[68,3],[68,2],[68,2],[68,1],[73,3],[73,3],[73,1],[76,2],[76,1],[76,3],[76,1],[76,1],[77,3],[77,3],[77,0],[81,1],[81,0],[82,2],[82,2],[82,2],[82,2],[82,2],[83,2],[83,0],[45,5],[87,5],[87,5],[89,1],[89,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -89,6 +89,8 @@ this.$ = new Nodo('RAIZ','');
                 //let temp = new Recorrer(this.$);
                 this.$.addTokens(tk_tokens);
                 this.$.addErrores(tk_errores);
+                tk_tokens = []
+                tk_errores = []
                 return this.$;
                 
 break;
@@ -100,7 +102,10 @@ this.$ = new Nodo('INICIO','');
                         
 break;
 case 3:
-console.log('Error sintactico en linea: '+this._$.first_line + ', y columna: '+this._$.first_column)
+
+            tk_errores.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext});
+            console.log('Error sintactico en linea: '+this._$.first_line + ', y columna: '+this._$.first_column);
+            
 break;
 case 5:
 this.$ = new Nodo('S','');
@@ -518,8 +523,8 @@ this.$ = new Nodo('MSG','');
 break;
 }
 },
-table: [{3:1,4:2,5:$V0,6:$V1,8:$V2},{1:[3]},{5:[1,5]},{7:6,9:[1,7],13:[1,8]},{5:[2,3]},{1:[2,1]},{4:9,5:$V0,6:$V1,8:$V2},{10:[1,10]},{10:[1,11]},{5:[2,2]},{11:[1,12]},{11:[1,13]},{6:$V3,8:$V4,12:14,21:16,27:$V5,31:$V6,33:$V7,34:$V8,35:$V9},{6:$Va,8:$Vb,14:22},{8:[1,24]},{15:29,20:25,22:26,23:27,24:[1,28],25:$Vc,27:$Vd,31:$Ve,33:$Vf,34:$Vg,35:$Vh},{6:$V3,8:$V4,12:36,21:16,27:$V5,31:$V6,33:$V7,34:$V8,35:$V9},{10:[1,37]},{10:[1,38]},{10:[1,39]},{10:[1,40]},{10:[1,41]},{8:[1,42]},{15:43,25:$Vc,27:$Vd,31:$Ve,33:$Vf,34:$Vg,35:$Vh},o($Vi,[2,5]),{8:[2,9]},{6:$V3,8:$V4,12:44,21:16,27:$V5,31:$V6,33:$V7,34:$V8,35:$V9},{6:$V3,8:$V4,12:45,21:16,27:$V5,31:$V6,33:$V7,34:$V8,35:$V9},{25:[1,46]},{10:[1,47]},{10:[2,27]},{10:[2,28]},{10:[2,29]},{10:[2,30]},{10:[2,31]},{10:[2,32]},{8:[2,10]},{19:$Vj,32:48,36:$Vk},{19:$Vj,32:51,36:$Vk},{19:$Vj,32:52,36:$Vk},{19:$Vj,32:53,36:$Vk},{19:$Vj,32:54,36:$Vk},o($Vi,[2,6]),{10:[1,55]},{8:[2,12]},{8:[2,13]},{26:[1,56]},{16:[1,57]},o($Vl,[2,15]),{10:$Vm,16:$Vn,37:58,38:59,39:[1,60],59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},o($Vl,[2,21]),o($Vl,[2,16]),o($Vl,[2,17]),o($Vl,[2,18]),o($Vl,[2,19]),{16:[1,72]},{16:[1,73]},{15:76,17:74,18:$Vs,25:$Vc,27:$Vd,31:$Ve,33:$Vf,34:$Vg,35:$Vh,40:75},o($Vl,[2,20]),{19:[1,77],56:$Vt,57:$Vu,58:$Vv},{19:[1,81]},o($Vw,[2,56]),{10:$Vm,16:$Vn,38:82,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},o($Vw,[2,58],{62:[1,83],63:[1,84],64:[1,85],65:[1,86],66:[1,87],67:[1,88]}),o($Vx,[2,65],{69:[1,89],70:[1,90],71:[1,91],72:[1,92]}),o($Vy,[2,70],{74:[1,93],75:[1,94]}),o($Vz,[2,73]),o($Vz,[2,81],{77:95,16:[1,97],36:[1,96]}),o($Vz,[2,75]),{10:$Vm,16:$Vn,38:98,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},o($Vz,[2,77]),o($Vz,[2,78]),{15:76,17:99,18:$Vs,25:$Vc,27:$Vd,31:$Ve,33:$Vf,34:$Vg,35:$Vh,40:75},{27:[1,100]},{18:[1,101]},{18:[2,25]},{10:[1,102]},o($Vl,[2,22]),{10:$Vm,16:$Vn,38:103,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,38:104,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,38:105,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},o($Vl,[2,23]),o($Vw,[2,57]),{10:$Vm,16:$Vn,61:106,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,61:107,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,61:108,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,61:109,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,61:110,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,61:111,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,68:112,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,68:113,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},o($Vy,[2,68]),o($Vy,[2,69]),{10:$Vm,16:$Vn,73:114,76:66,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,73:115,76:66,78:$Vp,79:$Vq,80:$Vr},o($Vz,[2,74]),{10:$Vm,16:$Vn,38:116,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{10:$VA,18:[2,83],39:$VB,78:$VC,79:$VD,80:$VE,81:117,82:118},{18:[1,124],56:$Vt,57:$Vu,58:$Vv},{18:[1,125]},{28:[1,126]},{11:[1,127]},{18:[2,35],41:128,42:[1,129]},o($Vw,[2,53]),o($Vw,[2,54]),o($Vw,[2,55]),o($Vx,[2,59]),o($Vx,[2,60]),o($Vx,[2,61]),o($Vx,[2,62]),o($Vx,[2,63]),o($Vx,[2,64]),o($Vy,[2,66]),o($Vy,[2,67]),o($Vz,[2,71]),o($Vz,[2,72]),{19:[1,130],56:$Vt,57:$Vu,58:$Vv},{18:[1,131]},{18:[2,82]},{18:$VF,42:$VG,83:132},{18:$VF,42:$VG,83:134},{18:$VF,42:$VG,83:135},{18:$VF,42:$VG,83:136},{18:$VF,42:$VG,83:137},o($Vz,[2,76]),{19:[1,138]},{29:[1,139]},{8:$VH,10:$Vm,16:$Vn,21:145,27:$V5,30:140,31:$V6,33:$V7,34:$V8,35:$V9,38:143,43:141,44:142,45:144,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,84:$VP},{18:[2,33]},{15:76,25:$Vc,27:$Vd,31:$Ve,33:$Vf,34:$Vg,35:$Vh,40:154},o($Vz,[2,79]),o($Vz,[2,80]),{18:[2,84]},{10:$VA,39:$VB,78:$VC,79:$VD,80:$VE,82:155},{18:[2,85]},{18:[2,86]},{18:[2,87]},{18:[2,88]},{6:$Va,8:$Vb,14:156},{10:[1,157]},{8:[1,158]},{8:$VH,10:$Vm,16:$Vn,21:145,27:$V5,30:159,31:$V6,33:$V7,34:$V8,35:$V9,38:143,43:141,44:142,45:144,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,84:$VP},{8:$VH,10:$Vm,16:$Vn,21:145,27:$V5,30:160,31:$V6,33:$V7,34:$V8,35:$V9,38:143,43:141,44:142,45:144,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,84:$VP},{19:[1,161],56:$Vt,57:$Vu,58:$Vv},{8:$VH,10:$Vm,16:$Vn,21:145,27:$V5,30:162,31:$V6,33:$V7,34:$V8,35:$V9,38:143,43:141,44:142,45:144,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,84:$VP},{8:$VH,10:$Vm,16:$Vn,21:145,27:$V5,30:163,31:$V6,33:$V7,34:$V8,35:$V9,38:143,43:141,44:142,45:144,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,84:$VP},{10:$Vm,16:$Vn,38:164,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{19:[1,165]},{19:[1,166]},{16:[1,167]},{16:[1,168]},{11:[1,169]},{16:[1,170]},{85:[1,171]},{18:[2,34]},{18:[2,89]},{8:[2,7]},{18:[1,172]},o($VQ,[2,24]),{8:[2,36]},{8:[2,37]},{8:$VH,10:$Vm,16:$Vn,21:145,27:$V5,30:173,31:$V6,33:$V7,34:$V8,35:$V9,38:143,43:141,44:142,45:144,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,84:$VP},{8:[2,39]},{8:[2,40]},{19:[1,174],56:$Vt,57:$Vu,58:$Vv},{8:$VH,10:$Vm,16:$Vn,21:145,27:$V5,30:175,31:$V6,33:$V7,34:$V8,35:$V9,38:143,43:141,44:142,45:144,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,84:$VP},{8:$VH,10:$Vm,16:$Vn,21:145,27:$V5,30:176,31:$V6,33:$V7,34:$V8,35:$V9,38:143,43:141,44:142,45:144,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,84:$VP},{21:177,27:$V5,31:$V6,33:$V7,34:$V8,35:$V9},{10:$Vm,16:$Vn,38:178,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{8:$VH,10:$Vm,16:$Vn,21:145,27:$V5,30:179,31:$V6,33:$V7,34:$V8,35:$V9,38:143,43:141,44:142,45:144,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,84:$VP},{10:$Vm,16:$Vn,38:180,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{86:[1,181]},{11:[1,182]},{8:[2,38]},{8:$VH,10:$Vm,16:$Vn,21:145,27:$V5,30:183,31:$V6,33:$V7,34:$V8,35:$V9,38:143,43:141,44:142,45:144,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,84:$VP},{8:[2,42]},{8:[2,43]},{10:$Vm,16:$Vn,38:184,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{18:[1,185],56:$Vt,57:$Vu,58:$Vv},{8:[1,186]},{18:[1,187],56:$Vt,57:$Vu,58:$Vv},{85:[1,188]},{8:$VH,10:$Vm,16:$Vn,21:145,27:$V5,30:189,31:$V6,33:$V7,34:$V8,35:$V9,38:143,43:141,44:142,45:144,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,84:$VP},{8:[2,41]},{19:[1,190],56:$Vt,57:$Vu,58:$Vv},{11:[1,191]},{50:[1,192]},{11:[1,193]},{87:194,88:[1,195],90:[1,196]},{8:[1,197]},{10:$Vm,16:$Vn,38:198,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{8:$VH,10:$Vm,16:$Vn,21:145,27:$V5,30:199,31:$V6,33:$V7,34:$V8,35:$V9,38:143,43:141,44:142,45:144,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,84:$VP},{16:[1,200]},{8:$VH,10:$Vm,16:$Vn,21:145,27:$V5,30:201,31:$V6,33:$V7,34:$V8,35:$V9,38:143,43:141,44:142,45:144,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,84:$VP},o($VR,[2,91]),{16:[1,202]},{16:[1,203]},o($VQ,[2,14]),{18:[1,204],56:$Vt,57:$Vu,58:$Vv},{8:[1,205]},{10:$Vm,16:$Vn,38:206,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{8:[1,207]},{10:$Vm,16:$Vn,38:210,39:$VS,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,89:208},{10:$Vm,16:$Vn,38:210,39:$VS,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,89:211},{11:[1,212]},o($VR,[2,46]),{18:[1,213],56:$Vt,57:$Vu,58:$Vv},o($VR,$VT,{53:214,54:$VU}),{18:[1,216]},{18:[2,94]},{18:[2,95],56:$Vt,57:$Vu,58:$Vv},{18:[1,217]},{8:$VH,10:$Vm,16:$Vn,21:145,27:$V5,30:218,31:$V6,33:$V7,34:$V8,35:$V9,38:143,43:141,44:142,45:144,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,84:$VP},{19:[1,219]},o($VR,[2,48]),{11:[2,52],52:[1,221],55:220},{19:[1,222]},{19:[1,223]},{8:[1,224]},o($VR,[2,47]),{11:[1,225]},{16:[1,226]},o($VR,[2,92]),o($VR,[2,93]),o($VR,[2,45]),{8:$VH,10:$Vm,16:$Vn,21:145,27:$V5,30:227,31:$V6,33:$V7,34:$V8,35:$V9,38:143,43:141,44:142,45:144,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr,84:$VP},{10:$Vm,16:$Vn,38:228,59:61,60:$Vo,61:63,68:64,73:65,76:66,78:$Vp,79:$Vq,80:$Vr},{8:[1,229]},{18:[1,230],56:$Vt,57:$Vu,58:$Vv},o($VR,$VT,{53:231,54:$VU}),{11:[2,51]},o($VR,[2,49])],
-defaultActions: {4:[2,3],5:[2,1],9:[2,2],25:[2,9],30:[2,27],31:[2,28],32:[2,29],33:[2,30],34:[2,31],35:[2,32],36:[2,10],44:[2,12],45:[2,13],75:[2,25],118:[2,82],128:[2,33],132:[2,84],134:[2,85],135:[2,86],136:[2,87],137:[2,88],154:[2,34],155:[2,89],156:[2,7],159:[2,36],160:[2,37],162:[2,39],163:[2,40],173:[2,38],175:[2,42],176:[2,43],183:[2,41],209:[2,94],230:[2,51]},
+table: [{2:$V0,3:1,4:2,5:$V1,6:$V2},{1:[3]},{5:[1,5]},{7:6,9:[1,7],13:[1,8]},{8:[1,9]},{1:[2,1]},{2:$V0,4:10,5:$V1,6:$V2},{10:[1,11]},{10:[1,12]},{5:[2,3]},{5:[2,2]},{11:[1,13]},{11:[1,14]},{6:$V3,8:$V4,12:15,21:17,27:$V5,31:$V6,33:$V7,34:$V8,35:$V9},{6:$Va,8:$Vb,14:23},{8:[1,25]},{15:30,20:26,22:27,23:28,24:[1,29],25:$Vc,27:$Vd,31:$Ve,33:$Vf,34:$Vg,35:$Vh},{6:$V3,8:$V4,12:37,21:17,27:$V5,31:$V6,33:$V7,34:$V8,35:$V9},{10:[1,38]},{10:[1,39]},{10:[1,40]},{10:[1,41]},{10:[1,42]},{8:[1,43]},{15:44,25:$Vc,27:$Vd,31:$Ve,33:$Vf,34:$Vg,35:$Vh},o($Vi,[2,5]),{8:[2,9]},{6:$V3,8:$V4,12:45,21:17,27:$V5,31:$V6,33:$V7,34:$V8,35:$V9},{6:$V3,8:$V4,12:46,21:17,27:$V5,31:$V6,33:$V7,34:$V8,35:$V9},{25:[1,47]},{10:[1,48]},{10:[2,27]},{10:[2,28]},{10:[2,29]},{10:[2,30]},{10:[2,31]},{10:[2,32]},{8:[2,10]},{19:$Vj,32:49,36:$Vk},{19:$Vj,32:52,36:$Vk},{19:$Vj,32:53,36:$Vk},{19:$Vj,32:54,36:$Vk},{19:$Vj,32:55,36:$Vk},o($Vi,[2,6]),{10:[1,56]},{8:[2,12]},{8:[2,13]},{26:[1,57]},{16:[1,58]},o($Vl,[2,15]),{10:$Vm,16:$Vn,37:59,38:60,39:[1,61],59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},o($Vl,[2,21]),o($Vl,[2,16]),o($Vl,[2,17]),o($Vl,[2,18]),o($Vl,[2,19]),{16:[1,73]},{16:[1,74]},{15:77,17:75,18:$Vs,25:$Vc,27:$Vd,31:$Ve,33:$Vf,34:$Vg,35:$Vh,40:76},o($Vl,[2,20]),{19:[1,78],56:$Vt,57:$Vu,58:$Vv},{19:[1,82]},o($Vw,[2,56]),{10:$Vm,16:$Vn,38:83,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},o($Vw,[2,58],{62:[1,84],63:[1,85],64:[1,86],65:[1,87],66:[1,88],67:[1,89]}),o($Vx,[2,65],{69:[1,90],70:[1,91],71:[1,92],72:[1,93]}),o($Vy,[2,70],{74:[1,94],75:[1,95]}),o($Vz,[2,73]),o($Vz,[2,81],{77:96,16:[1,98],36:[1,97]}),o($Vz,[2,75]),{10:$Vm,16:$Vn,38:99,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},o($Vz,[2,77]),o($Vz,[2,78]),{15:77,17:100,18:$Vs,25:$Vc,27:$Vd,31:$Ve,33:$Vf,34:$Vg,35:$Vh,40:76},{27:[1,101]},{18:[1,102]},{18:[2,25]},{10:[1,103]},o($Vl,[2,22]),{10:$Vm,16:$Vn,38:104,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,38:105,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,38:106,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},o($Vl,[2,23]),o($Vw,[2,57]),{10:$Vm,16:$Vn,61:107,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,61:108,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,61:109,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,61:110,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,61:111,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,61:112,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,68:113,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,68:114,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},o($Vy,[2,68]),o($Vy,[2,69]),{10:$Vm,16:$Vn,73:115,76:67,78:$Vp,79:$Vq,80:$Vr},{10:$Vm,16:$Vn,73:116,76:67,78:$Vp,79:$Vq,80:$Vr},o($Vz,[2,74]),{10:$Vm,16:$Vn,38:117,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{10:$VA,18:[2,83],39:$VB,78:$VC,79:$VD,80:$VE,81:118,82:119},{18:[1,125],56:$Vt,57:$Vu,58:$Vv},{18:[1,126]},{28:[1,127]},{11:[1,128]},{18:[2,35],41:129,42:[1,130]},o($Vw,[2,53]),o($Vw,[2,54]),o($Vw,[2,55]),o($Vx,[2,59]),o($Vx,[2,60]),o($Vx,[2,61]),o($Vx,[2,62]),o($Vx,[2,63]),o($Vx,[2,64]),o($Vy,[2,66]),o($Vy,[2,67]),o($Vz,[2,71]),o($Vz,[2,72]),{19:[1,131],56:$Vt,57:$Vu,58:$Vv},{18:[1,132]},{18:[2,82]},{18:$VF,42:$VG,83:133},{18:$VF,42:$VG,83:135},{18:$VF,42:$VG,83:136},{18:$VF,42:$VG,83:137},{18:$VF,42:$VG,83:138},o($Vz,[2,76]),{19:[1,139]},{29:[1,140]},{8:$VH,10:$Vm,16:$Vn,21:146,27:$V5,30:141,31:$V6,33:$V7,34:$V8,35:$V9,38:144,43:142,44:143,45:145,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,84:$VP},{18:[2,33]},{15:77,25:$Vc,27:$Vd,31:$Ve,33:$Vf,34:$Vg,35:$Vh,40:155},o($Vz,[2,79]),o($Vz,[2,80]),{18:[2,84]},{10:$VA,39:$VB,78:$VC,79:$VD,80:$VE,82:156},{18:[2,85]},{18:[2,86]},{18:[2,87]},{18:[2,88]},{6:$Va,8:$Vb,14:157},{10:[1,158]},{8:[1,159]},{8:$VH,10:$Vm,16:$Vn,21:146,27:$V5,30:160,31:$V6,33:$V7,34:$V8,35:$V9,38:144,43:142,44:143,45:145,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,84:$VP},{8:$VH,10:$Vm,16:$Vn,21:146,27:$V5,30:161,31:$V6,33:$V7,34:$V8,35:$V9,38:144,43:142,44:143,45:145,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,84:$VP},{19:[1,162],56:$Vt,57:$Vu,58:$Vv},{8:$VH,10:$Vm,16:$Vn,21:146,27:$V5,30:163,31:$V6,33:$V7,34:$V8,35:$V9,38:144,43:142,44:143,45:145,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,84:$VP},{8:$VH,10:$Vm,16:$Vn,21:146,27:$V5,30:164,31:$V6,33:$V7,34:$V8,35:$V9,38:144,43:142,44:143,45:145,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,84:$VP},{10:$Vm,16:$Vn,38:165,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{19:[1,166]},{19:[1,167]},{16:[1,168]},{16:[1,169]},{11:[1,170]},{16:[1,171]},{85:[1,172]},{18:[2,34]},{18:[2,89]},{8:[2,7]},{18:[1,173]},o($VQ,[2,24]),{8:[2,36]},{8:[2,37]},{8:$VH,10:$Vm,16:$Vn,21:146,27:$V5,30:174,31:$V6,33:$V7,34:$V8,35:$V9,38:144,43:142,44:143,45:145,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,84:$VP},{8:[2,39]},{8:[2,40]},{19:[1,175],56:$Vt,57:$Vu,58:$Vv},{8:$VH,10:$Vm,16:$Vn,21:146,27:$V5,30:176,31:$V6,33:$V7,34:$V8,35:$V9,38:144,43:142,44:143,45:145,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,84:$VP},{8:$VH,10:$Vm,16:$Vn,21:146,27:$V5,30:177,31:$V6,33:$V7,34:$V8,35:$V9,38:144,43:142,44:143,45:145,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,84:$VP},{21:178,27:$V5,31:$V6,33:$V7,34:$V8,35:$V9},{10:$Vm,16:$Vn,38:179,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{8:$VH,10:$Vm,16:$Vn,21:146,27:$V5,30:180,31:$V6,33:$V7,34:$V8,35:$V9,38:144,43:142,44:143,45:145,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,84:$VP},{10:$Vm,16:$Vn,38:181,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{86:[1,182]},{11:[1,183]},{8:[2,38]},{8:$VH,10:$Vm,16:$Vn,21:146,27:$V5,30:184,31:$V6,33:$V7,34:$V8,35:$V9,38:144,43:142,44:143,45:145,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,84:$VP},{8:[2,42]},{8:[2,43]},{10:$Vm,16:$Vn,38:185,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{18:[1,186],56:$Vt,57:$Vu,58:$Vv},{8:[1,187]},{18:[1,188],56:$Vt,57:$Vu,58:$Vv},{85:[1,189]},{8:$VH,10:$Vm,16:$Vn,21:146,27:$V5,30:190,31:$V6,33:$V7,34:$V8,35:$V9,38:144,43:142,44:143,45:145,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,84:$VP},{8:[2,41]},{19:[1,191],56:$Vt,57:$Vu,58:$Vv},{11:[1,192]},{50:[1,193]},{11:[1,194]},{87:195,88:[1,196],90:[1,197]},{8:[1,198]},{10:$Vm,16:$Vn,38:199,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{8:$VH,10:$Vm,16:$Vn,21:146,27:$V5,30:200,31:$V6,33:$V7,34:$V8,35:$V9,38:144,43:142,44:143,45:145,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,84:$VP},{16:[1,201]},{8:$VH,10:$Vm,16:$Vn,21:146,27:$V5,30:202,31:$V6,33:$V7,34:$V8,35:$V9,38:144,43:142,44:143,45:145,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,84:$VP},o($VR,[2,91]),{16:[1,203]},{16:[1,204]},o($VQ,[2,14]),{18:[1,205],56:$Vt,57:$Vu,58:$Vv},{8:[1,206]},{10:$Vm,16:$Vn,38:207,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{8:[1,208]},{10:$Vm,16:$Vn,38:211,39:$VS,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,89:209},{10:$Vm,16:$Vn,38:211,39:$VS,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,89:212},{11:[1,213]},o($VR,[2,46]),{18:[1,214],56:$Vt,57:$Vu,58:$Vv},o($VR,$VT,{53:215,54:$VU}),{18:[1,217]},{18:[2,94]},{18:[2,95],56:$Vt,57:$Vu,58:$Vv},{18:[1,218]},{8:$VH,10:$Vm,16:$Vn,21:146,27:$V5,30:219,31:$V6,33:$V7,34:$V8,35:$V9,38:144,43:142,44:143,45:145,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,84:$VP},{19:[1,220]},o($VR,[2,48]),{11:[2,52],52:[1,222],55:221},{19:[1,223]},{19:[1,224]},{8:[1,225]},o($VR,[2,47]),{11:[1,226]},{16:[1,227]},o($VR,[2,92]),o($VR,[2,93]),o($VR,[2,45]),{8:$VH,10:$Vm,16:$Vn,21:146,27:$V5,30:228,31:$V6,33:$V7,34:$V8,35:$V9,38:144,43:142,44:143,45:145,46:$VI,47:$VJ,48:$VK,49:$VL,50:$VM,51:$VN,52:$VO,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr,84:$VP},{10:$Vm,16:$Vn,38:229,59:62,60:$Vo,61:64,68:65,73:66,76:67,78:$Vp,79:$Vq,80:$Vr},{8:[1,230]},{18:[1,231],56:$Vt,57:$Vu,58:$Vv},o($VR,$VT,{53:232,54:$VU}),{11:[2,51]},o($VR,[2,49])],
+defaultActions: {5:[2,1],9:[2,3],10:[2,2],26:[2,9],31:[2,27],32:[2,28],33:[2,29],34:[2,30],35:[2,31],36:[2,32],37:[2,10],45:[2,12],46:[2,13],76:[2,25],119:[2,82],129:[2,33],133:[2,84],135:[2,85],136:[2,86],137:[2,87],138:[2,88],155:[2,34],156:[2,89],157:[2,7],160:[2,36],161:[2,37],163:[2,39],164:[2,40],174:[2,38],176:[2,42],177:[2,43],184:[2,41],210:[2,94],231:[2,51]},
 parseError: function parseError (str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -529,16 +534,33 @@ parseError: function parseError (str, hash) {
         throw error;
     }
 },
-parse: function parse(input) {
-    var self = this, stack = [0], tstack = [], vstack = [null], lstack = [], table = this.table, yytext = '', yylineno = 0, yyleng = 0, recovering = 0, TERROR = 2, EOF = 1;
+parse: function parse (input) {
+    var self = this,
+        stack = [0],
+        tstack = [], // token stack
+        vstack = [null], // semantic value stack
+        lstack = [], // location stack
+        table = this.table,
+        yytext = '',
+        yylineno = 0,
+        yyleng = 0,
+        recovering = 0,
+        TERROR = 2,
+        EOF = 1;
+
     var args = lstack.slice.call(arguments, 1);
+
+    //this.reductionCount = this.shiftCount = 0;
+
     var lexer = Object.create(this.lexer);
     var sharedState = { yy: {} };
+    // copy state
     for (var k in this.yy) {
-        if (Object.prototype.hasOwnProperty.call(this.yy, k)) {
-            sharedState.yy[k] = this.yy[k];
-        }
+      if (Object.prototype.hasOwnProperty.call(this.yy, k)) {
+        sharedState.yy[k] = this.yy[k];
+      }
     }
+
     lexer.setInput(input, sharedState.yy);
     sharedState.yy.lexer = lexer;
     sharedState.yy.parser = this;
@@ -547,123 +569,207 @@ parse: function parse(input) {
     }
     var yyloc = lexer.yylloc;
     lstack.push(yyloc);
+
     var ranges = lexer.options && lexer.options.ranges;
+
     if (typeof sharedState.yy.parseError === 'function') {
         this.parseError = sharedState.yy.parseError;
     } else {
         this.parseError = Object.getPrototypeOf(this).parseError;
     }
-    function popStack(n) {
+
+    function popStack (n) {
         stack.length = stack.length - 2 * n;
         vstack.length = vstack.length - n;
         lstack.length = lstack.length - n;
     }
-    _token_stack:
-        var lex = function () {
-            var token;
-            token = lexer.lex() || EOF;
-            if (typeof token !== 'number') {
-                token = self.symbols_[token] || token;
-            }
-            return token;
-        };
+
+_token_stack:
+    var lex = function () {
+        var token;
+        token = lexer.lex() || EOF;
+        // if token isn't its numeric value, convert
+        if (typeof token !== 'number') {
+            token = self.symbols_[token] || token;
+        }
+        return token;
+    }
+
     var symbol, preErrorSymbol, state, action, a, r, yyval = {}, p, len, newState, expected;
     while (true) {
+        // retreive state number from top of stack
         state = stack[stack.length - 1];
+
+        // use default actions if available
         if (this.defaultActions[state]) {
             action = this.defaultActions[state];
         } else {
             if (symbol === null || typeof symbol == 'undefined') {
                 symbol = lex();
             }
+            // read action for current state and first input
             action = table[state] && table[state][symbol];
         }
-                    if (typeof action === 'undefined' || !action.length || !action[0]) {
-                var errStr = '';
+
+_handle_error:
+        // handle parse error
+        if (typeof action === 'undefined' || !action.length || !action[0]) {
+            var error_rule_depth;
+            var errStr = '';
+
+            // Return the rule stack depth where the nearest error rule can be found.
+            // Return FALSE when no error recovery rule was found.
+            function locateNearestErrorRecoveryRule(state) {
+                var stack_probe = stack.length - 1;
+                var depth = 0;
+
+                // try to recover from error
+                for(;;) {
+                    // check for error recovery rule in this state
+                    if ((TERROR.toString()) in table[state]) {
+                        return depth;
+                    }
+                    if (state === 0 || stack_probe < 2) {
+                        return false; // No suitable error recovery rule available.
+                    }
+                    stack_probe -= 2; // popStack(1): [symbol, action]
+                    state = stack[stack_probe];
+                    ++depth;
+                }
+            }
+
+            if (!recovering) {
+                // first see if there's any chance at hitting an error recovery rule:
+                error_rule_depth = locateNearestErrorRecoveryRule(state);
+
+                // Report error
                 expected = [];
                 for (p in table[state]) {
                     if (this.terminals_[p] && p > TERROR) {
-                        expected.push('\'' + this.terminals_[p] + '\'');
+                        expected.push("'"+this.terminals_[p]+"'");
                     }
                 }
                 if (lexer.showPosition) {
-                    errStr = 'Parse error on line ' + (yylineno + 1) + ':\n' + lexer.showPosition() + '\nExpecting ' + expected.join(', ') + ', got \'' + (this.terminals_[symbol] || symbol) + '\'';
+                    errStr = 'Parse error on line '+(yylineno+1)+":\n"+lexer.showPosition()+"\nExpecting "+expected.join(', ') + ", got '" + (this.terminals_[symbol] || symbol)+ "'";
                 } else {
-                    errStr = 'Parse error on line ' + (yylineno + 1) + ': Unexpected ' + (symbol == EOF ? 'end of input' : '\'' + (this.terminals_[symbol] || symbol) + '\'');
+                    errStr = 'Parse error on line '+(yylineno+1)+": Unexpected " +
+                                  (symbol == EOF ? "end of input" :
+                                              ("'"+(this.terminals_[symbol] || symbol)+"'"));
                 }
                 this.parseError(errStr, {
                     text: lexer.match,
                     token: this.terminals_[symbol] || symbol,
                     line: lexer.yylineno,
                     loc: yyloc,
-                    expected: expected
+                    expected: expected,
+                    recoverable: (error_rule_depth !== false)
                 });
+            } else if (preErrorSymbol !== EOF) {
+                error_rule_depth = locateNearestErrorRecoveryRule(state);
             }
-        if (action[0] instanceof Array && action.length > 1) {
-            throw new Error('Parse Error: multiple actions possible at state: ' + state + ', token: ' + symbol);
-        }
-        switch (action[0]) {
-        case 1:
-            stack.push(symbol);
-            vstack.push(lexer.yytext);
-            lstack.push(lexer.yylloc);
-            stack.push(action[1]);
-            symbol = null;
-            if (!preErrorSymbol) {
+
+            // just recovered from another error
+            if (recovering == 3) {
+                if (symbol === EOF || preErrorSymbol === EOF) {
+                    throw new Error(errStr || 'Parsing halted while starting to recover from another error.');
+                }
+
+                // discard current lookahead and grab another
                 yyleng = lexer.yyleng;
                 yytext = lexer.yytext;
                 yylineno = lexer.yylineno;
                 yyloc = lexer.yylloc;
-                if (recovering > 0) {
-                    recovering--;
-                }
-            } else {
-                symbol = preErrorSymbol;
-                preErrorSymbol = null;
+                symbol = lex();
             }
-            break;
-        case 2:
-            len = this.productions_[action[1]][1];
-            yyval.$ = vstack[vstack.length - len];
-            yyval._$ = {
-                first_line: lstack[lstack.length - (len || 1)].first_line,
-                last_line: lstack[lstack.length - 1].last_line,
-                first_column: lstack[lstack.length - (len || 1)].first_column,
-                last_column: lstack[lstack.length - 1].last_column
-            };
-            if (ranges) {
-                yyval._$.range = [
-                    lstack[lstack.length - (len || 1)].range[0],
-                    lstack[lstack.length - 1].range[1]
-                ];
+
+            // try to recover from error
+            if (error_rule_depth === false) {
+                throw new Error(errStr || 'Parsing halted. No suitable error recovery rule available.');
             }
-            r = this.performAction.apply(yyval, [
-                yytext,
-                yyleng,
-                yylineno,
-                sharedState.yy,
-                action[1],
-                vstack,
-                lstack
-            ].concat(args));
-            if (typeof r !== 'undefined') {
-                return r;
-            }
-            if (len) {
-                stack = stack.slice(0, -1 * len * 2);
-                vstack = vstack.slice(0, -1 * len);
-                lstack = lstack.slice(0, -1 * len);
-            }
-            stack.push(this.productions_[action[1]][0]);
-            vstack.push(yyval.$);
-            lstack.push(yyval._$);
-            newState = table[stack[stack.length - 2]][stack[stack.length - 1]];
-            stack.push(newState);
-            break;
-        case 3:
-            return true;
+            popStack(error_rule_depth);
+
+            preErrorSymbol = (symbol == TERROR ? null : symbol); // save the lookahead token
+            symbol = TERROR;         // insert generic error symbol as new lookahead
+            state = stack[stack.length-1];
+            action = table[state] && table[state][TERROR];
+            recovering = 3; // allow 3 real symbols to be shifted before reporting a new error
         }
+
+        // this shouldn't happen, unless resolve defaults are off
+        if (action[0] instanceof Array && action.length > 1) {
+            throw new Error('Parse Error: multiple actions possible at state: '+state+', token: '+symbol);
+        }
+
+        switch (action[0]) {
+            case 1: // shift
+                //this.shiftCount++;
+
+                stack.push(symbol);
+                vstack.push(lexer.yytext);
+                lstack.push(lexer.yylloc);
+                stack.push(action[1]); // push state
+                symbol = null;
+                if (!preErrorSymbol) { // normal execution/no error
+                    yyleng = lexer.yyleng;
+                    yytext = lexer.yytext;
+                    yylineno = lexer.yylineno;
+                    yyloc = lexer.yylloc;
+                    if (recovering > 0) {
+                        recovering--;
+                    }
+                } else {
+                    // error just occurred, resume old lookahead f/ before error
+                    symbol = preErrorSymbol;
+                    preErrorSymbol = null;
+                }
+                break;
+
+            case 2:
+                // reduce
+                //this.reductionCount++;
+
+                len = this.productions_[action[1]][1];
+
+                // perform semantic action
+                yyval.$ = vstack[vstack.length-len]; // default to $$ = $1
+                // default location, uses first token for firsts, last for lasts
+                yyval._$ = {
+                    first_line: lstack[lstack.length-(len||1)].first_line,
+                    last_line: lstack[lstack.length-1].last_line,
+                    first_column: lstack[lstack.length-(len||1)].first_column,
+                    last_column: lstack[lstack.length-1].last_column
+                };
+                if (ranges) {
+                  yyval._$.range = [lstack[lstack.length-(len||1)].range[0], lstack[lstack.length-1].range[1]];
+                }
+                r = this.performAction.apply(yyval, [yytext, yyleng, yylineno, sharedState.yy, action[1], vstack, lstack].concat(args));
+
+                if (typeof r !== 'undefined') {
+                    return r;
+                }
+
+                // pop off stack
+                if (len) {
+                    stack = stack.slice(0,-1*len*2);
+                    vstack = vstack.slice(0, -1*len);
+                    lstack = lstack.slice(0, -1*len);
+                }
+
+                stack.push(this.productions_[action[1]][0]);    // push nonterminal (reduce)
+                vstack.push(yyval.$);
+                lstack.push(yyval._$);
+                // goto new state = table[STATE][NONTERMINAL]
+                newState = table[stack[stack.length-2]][stack[stack.length-1]];
+                stack.push(newState);
+                break;
+
+            case 3:
+                // accept
+                return true;
+        }
+
     }
+
     return true;
 }};
 
@@ -671,7 +777,6 @@ parse: function parse(input) {
     //const Tokens = require('./Tokens');
     tk_tokens = []
     tk_errores = []
-    tk_comments = []
 /* generated by jison-lex 0.3.4 */
 var lexer = (function(){
 var lexer = ({

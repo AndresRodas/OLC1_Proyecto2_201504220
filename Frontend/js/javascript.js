@@ -20,15 +20,16 @@ function Analizar(entrada){
     //Se definen las variables iniciales
     Tokens = [];
     Errores = [];
-    var Tokens_Js = [];
+    let Tokens_Js = [];
     Traduccion = '';
     grafica_ast = '';
+    id_n = 1
 
-    console.log(Tokens)
+    
 
 
     //Se realiza el analisis y se guardan los tokens y errores
-    var Raiz = parser.parse(entrada)
+    let Raiz = parser.parse(entrada)
     Tokens = Raiz.tokens.slice()
     Errores = Raiz.errores.slice()
     Raiz.id = 0;
@@ -43,10 +44,6 @@ function Analizar(entrada){
     Graficar(Raiz)
     grafica_ast = grafica_ast + ' }'
 
-    //var salida_grafo = document.getElementById('grafo');
-    //d3.select(salida_grafo).graphviz().renderDot(grafica_ast);
-    
-   
     //se realiza la traduccion al lenguaje js
     Tokens_Js = TraducirJs(Tokens)
     for(let tk of Tokens_Js){
@@ -310,15 +307,17 @@ app.listen(3666, function () {
 })
 
 //post, nos mandan la entrada
-app.post('/', (req, res) => {
+app.post('/', async (req, res) => {
     console.log('I got a Post!')
     console.log(req.body.texto)
-    Analizar(req.body.texto)
-})
+    Tokens = []
+    await Analizar(req.body.texto)
+}) 
 
 //responder con Tokens 
 app.get('/tokens', async function (req, res) {
     //aqui se le manda lo que querramos
+    console.log('********************TOKENS*******************')
     console.log(Tokens)
     res.send(Tokens)
     console.log('Sending Tokens')
