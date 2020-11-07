@@ -135,7 +135,6 @@ function quitar(){
     }catch(error){}
 }
 
-
 /*-----------------------------------------------File---------------------------------------------------*/
 function AbrirArchivo(files){
     var file = files[0];
@@ -203,4 +202,137 @@ function DescargarArchivo(){
             window.URL.revokeObjectURL(url);  
         },0); 
     }
+}
+
+async function TraducirJavascript(){
+    //Definicion de la entrada
+    var ta = document.getElementById(get_vent());
+    var contenido = ta.value; 
+    //Variables de inicio
+    let send = { texto: contenido }
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(send)
+    }
+
+    //Peticiones post
+    fetch('http://localhost:3666', options)
+
+    //Peticiones get: Tokens
+    await fetch('http://localhost:3666/tokens')
+    .then(response => response.json() )
+    .then(data =>  {
+        console.log('LISTA DE TOKENS')
+        console.log(data)
+    }).catch(err =>  console.log(err))
+
+    //Peticiones get: Traduccion
+    await fetch('http://localhost:3666/errores')
+    .then(response => response.json() )
+    .then(data =>  {
+        console.log('LISTA DE ERRORES')
+        console.log(data)
+    }).catch(err =>  console.log(err))
+
+    //Peticiones get: Errores
+    await fetch('http://localhost:3666/traduccion')
+    .then(response => response.json() )
+    .then(data =>  {
+        console.log('TRADUCCION A JAVASCRIPT')
+        console.log(data)
+    }).catch(err =>  console.log(err))
+
+    //Peticiones get: grafo
+    await fetch('http://localhost:3666/grafo')
+    .then(response => response.json() )
+    .then(data =>  {
+        console.log('GRAFO')
+        console.log(data)
+    }).catch(err =>  console.log(err))
+
+
+    //Peticiones get: 
+    // fetch('http://localhost:3667asda')
+    // .then(response => response.json() )
+    // .then(data =>  {
+    //     let elemento = document.getElementById('grafo')
+    //     elemento.innerHTML = `
+    //         <p>${data[0]}</p>
+    //     `;
+    //     console.log(data)
+    // }).catch(err =>  console.log(err))
+
+}
+
+async function TraducirPython(){
+    //Definicion de la entrada
+    var ta = document.getElementById(get_vent());
+    var contenido = ta.value; 
+    //Variables de inicio
+    let send = { texto: contenido }
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(send) 
+    }
+
+    //Peticiones post
+    await fetch('http://localhost:3667', options)
+
+    //Peticiones get: Tokens
+    await fetch('http://localhost:3667/tokens')
+    .then(response => response.json() )
+    .then(data =>  {
+        console.log('LISTA DE TOKENS')
+        console.log(data)
+    }).catch(err =>  console.log(err))
+
+    //Peticiones get: Traduccion
+    await fetch('http://localhost:3667/traduccion')
+    .then(response => response.json() )
+    .then(data =>  {
+        console.log('TRADUCCION A PYTHON')
+        console.log(data)
+    }).catch(err =>  console.log(err))
+
+    //Peticiones get: Errores
+    await fetch('http://localhost:3667/errores')
+    .then(response => response.json() )
+    .then(data =>  {
+        console.log('LISTA DE ERRORES')
+        console.log(data)
+    }).catch(err =>  console.log(err))
+
+    //Peticiones get: Nodos
+    await fetch('http://localhost:3667/nodes')
+    .then(response => response.json() )
+    .then(data =>  {
+        console.log('LISTA DE NODOS')
+        console.log(data)
+    }).catch(err =>  console.log(err))
+
+    //Peticiones get: Edges
+    await fetch('http://localhost:3667/edges')
+    .then(response => response.json() )
+    .then(data =>  {
+        console.log('LISTA DE EDGES')
+        console.log(data)
+    }).catch(err =>  console.log(err))
+
+
+    //Peticiones get: 
+    // fetch('http://localhost:3667asda')
+    // .then(response => response.json() )
+    // .then(data =>  {
+    //     let elemento = document.getElementById('grafo')
+    //     elemento.innerHTML = `
+    //         <p>${data[0]}</p>
+    //     `;
+    //     console.log(data)
+    // }).catch(err =>  console.log(err))
 }

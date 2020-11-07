@@ -1,34 +1,58 @@
 //variables globales
 var parser = require('./gramatica')
-var id_n = 1;
+var express = require('express')
+var cors = require('cors')
+
+//Se definen las variables globales
+var Tokens = []
+var Errores = []
 var grafica_ast = ''
+var Traduccion = ''
+var id_n = 1;
+
+var app = express()
+
 
 /*********************************ANALISIS CON JISON*********************************/
-function AnalizarJison(){
+function Analizar(entrada){
     console.log('JavaScript analizer run!')
 
     //Se definen las variables iniciales
-    var Tokens = []
-    var Errores = []
-    var Tokens_Js = []
+    Tokens = [];
+    Errores = [];
+    var Tokens_Js = [];
+    Traduccion = '';
+    grafica_ast = '';
 
-    //Se definen los datos de entrada
-    var ta = document.getElementById(get_vent());
-    var contenido = ta.value;
+    console.log(Tokens)
+
 
     //Se realiza el analisis y se guardan los tokens y errores
-    var Raiz = parser.parse(contenido)
+    var Raiz = parser.parse(entrada)
     Tokens = Raiz.tokens.slice()
     Errores = Raiz.errores.slice()
+    Raiz.id = 0;
+    Raiz.valor = '' 
+    Raiz.tipo = ''
+    Raiz.hijos = []
+    Raiz.tokens = []
+    Raiz.errores = []
 
     //Se grafica el AST
     grafica_ast = 'digraph { '
     Graficar(Raiz)
-    var salida_grafo = document.getElementById('grafo');
-    d3.select(salida_grafo).graphviz().renderDot(grafica_ast);
+    grafica_ast = grafica_ast + ' }'
+
+    //var salida_grafo = document.getElementById('grafo');
+    //d3.select(salida_grafo).graphviz().renderDot(grafica_ast);
+    
    
     //se realiza la traduccion al lenguaje js
     Tokens_Js = TraducirJs(Tokens)
+    for(let tk of Tokens_Js){
+        Traduccion = Traduccion + tk + ' '
+    }
+
 }
 
 //********************************TRADUCIR A JAVASCRIPT******************************************
@@ -277,7 +301,48 @@ function Graficar(nodo){
     }
 }
 
-//reporte de errores
-function Reportes(){
-    
-}
+// aqui se inicializa el servidor
+app.use(cors())
+app.use(express.json({ limit: '1mb'})) 
+
+app.listen(3666, function () {
+    console.log('Server JavaScript on port: 3666')
+})
+
+//post, nos mandan la entrada
+app.post('/', (req, res) => {
+    console.log('I got a Post!')
+    console.log(req.body.texto)
+    Analizar(req.body.texto)
+})
+
+//responder con Tokens 
+app.get('/tokens', async function (req, res) {
+    //aqui se le manda lo que querramos
+    console.log(Tokens)
+    res.send(Tokens)
+    console.log('Sending Tokens')
+})
+
+//responder con errores 
+app.get('/errores', async function (req, res) {
+    //aqui se le manda lo que querramos
+    res.send(Errores)
+    console.log('Sending Errors')
+})
+
+//responder con traduccion 
+app.get('/traduccion', async function (req, res) {
+    //aqui se le manda lo que querramos
+    let traduc = [Traduccion]
+    res.send(traduc)
+    console.log('Sending Traduction')
+})
+
+//responder con grafo de dot 
+app.get('/grafo', async function (req, res) {
+    //aqui se le manda lo que querramos
+    let traduc = [grafica_ast]
+    res.send(traduc)
+    console.log('Sending graph')
+})

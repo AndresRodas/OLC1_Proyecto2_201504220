@@ -1,3 +1,16 @@
+var express = require('express')
+var cors = require('cors')
+const { request } = require('express')
+
+var app = express()
+
+//variables globales a retornar
+var Tokens = new Array() 
+var Errores = new Array()
+var salida = ''
+var nodes = []
+var edges = []
+
 
 //********************************ANALIZADOR LEXICO******************************************
 function Scanner(Tokens, Errores, entrada){
@@ -28,6 +41,11 @@ function Scanner(Tokens, Errores, entrada){
             cont++
         }
         else if (space.test(entrada[cont]))//aqui se reconoce el espacio
+        {
+            column++
+            cont++
+        }
+        else if (entrada[cont] == '\t')//aqui se reconoce el tab
         {
             column++
             cont++
@@ -519,10 +537,10 @@ function Parser(TokensEntrada, Errores, nodes, edges){
                     temporal = x[1]
                     for(let son of x[1]){
                         if(var1 != son && son != 'Epsilon'){
-                            nodes.push({id: var1+cont_graf, label: var1, group: var2})
-                            nodes.push({id: son+cont_graf, label: son, group: var2})
-                            edges.push({from: var1+cont_graf, to: son+cont_graf}) //se agrega el enlace del grafo!!!!!!!!!!!!!!!!
-                            cont_graf++
+                            nodes.push({id: var1, label: var1, group: var2})
+                            nodes.push({id: son, label: son, group: var2})
+                            edges.push({from: var1, to: son}) //se agrega el enlace del grafo!!!!!!!!!!!!!!!!
+                            
                         }   
                     }
                 }
@@ -532,55 +550,45 @@ function Parser(TokensEntrada, Errores, nodes, edges){
     }
 }
 //********************************ANALIZAR ENTRADA*******************************************
-function AnalizarPatita(){
-    console.log('Python analizer run!')
-    //entrada
-    var ta = document.getElementById(get_vent());
-    var contenido = ta.value;
+function Analizar(entrada){
+    console.log('Python analizer run! \nEntrada: '+entrada)
 
     //se declaran los arrays
-    var Tokens = new Array()
     var Tokens_Parser = new Array()
-    var Errores = new Array()
     var Comentarios = new Array()
 
-    //declaracion de nodos y aristas para el grafo
-    var nodes = []
-    var edges = []
+    //se inicializarn las variables globales
+    Tokens = [] 
+    Errores = []
+    salida = ''
+    nodes = []
+    edges = []
 
     //se realiza el analisis lexico
-    Scanner(Tokens, Errores, contenido)
+    Scanner(Tokens, Errores, entrada)
 
     //copiar tokens para parsear
-    for(let token of Tokens){
-        Tokens_Parser.push(token)
-    }
+    Tokens_Parser = Tokens.slice()
 
     //extrayendo comentarios
     ExtraerComentarios(Tokens_Parser, Comentarios)
 
     //se realiza el analisis sintactico
     Parser(Tokens_Parser, Errores, nodes, edges)
-    console.log('Se realizó el analisis correctamente')
 
     //imprimir
     Imprimir(Tokens, 'Tokens')
-    Imprimir(Comentarios,'Comentarios')
     Imprimir(Errores, 'Errores')
 
     //realizar Grafo de analisis sintactico
     //Grafo(nodes, edges)
-    
-    console.log(Tokens)
-    //se traduce a python
+        
+    //se traduce a python (retornar "salida")
     var TokensPython = TraducirPy(Tokens)
-    console.log(TokensPython)
-
-    var salida = ''
     for(let tkp of TokensPython){
-        salida = salida + tkp.texto
+        salida = salida + tkp.texto + ' '
     } 
-    console.log(salida)
+    console.log(salida) 
 }   
 //********************************TRADUCIR A PYTHON******************************************
 function TraducirPy(Tokens) {
@@ -1004,3 +1012,55 @@ function Grafo(nodes, edges) {
     var network = new vis.Network(container, data, options);
 
 }
+
+// aqui se inicializa el servidor
+app.use(cors())
+
+app.use(express.json({ limit: '1mb'})) 
+
+app.listen(3667, function () {
+    console.log('Server Python on port: 3667')
+})
+
+//post, nos mandan la entrada
+app.post('/', (req, res) => {
+    console.log('I got a Post!')
+    console.log(req.body.texto)
+    Analizar(req.body.texto)
+})
+
+//responder con Tokens 
+app.get('/tokens', async function (req, res) {
+    //aqui se le manda lo que querramos
+    res.send(Tokens)
+    console.log('I got a Get')
+})
+
+//responder con traduccion 
+app.get('/traduccion', async function (req, res) {
+    //aqui se le manda lo que querramos
+    let traduc = [salida]
+    res.send(traduc)
+    console.log('I got a Get')
+})
+
+//responder con errores 
+app.get('/errores', async function (req, res) {
+    //aqui se le manda lo que querramos
+    res.send(Errores)
+    console.log('I got a Get')
+})
+
+//responder con traduccion 
+app.get('/nodes', async function (req, res) {
+    //aqui se le manda lo que querramos
+    res.send(nodes)
+    console.log('I got a Get')
+})
+
+//responder con traduccion 
+app.get('/edges', async function (req, res) {
+    //aqui se le manda lo que querramos
+    res.send(edges)
+    console.log('I got a Get')
+})

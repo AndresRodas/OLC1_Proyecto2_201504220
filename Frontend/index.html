@@ -2,40 +2,42 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/index.css"/>
+        <link rel="stylesheet" href="server/css/index.css"/>
+
         <!------------------------------GRAPHVIZ------------------------------------>
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
         <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
-        <!----------------------------TRADUCTOR PY----------------------------------->
-        <script type="text/javascript" src="py/python.js"></script>
-        <!----------------------------TRADUCTOR JS----------------------------------->
-        <script type="text/javascript" src="js/javascript.js"></script>
-        <!----------------------------INTERFAZ PESTANIA----------------------------------->
-        <script type="text/javascript" src="./main.js"></script>
-        <script type="text/javascript" src="./jquery-1.7.2.min.js"></script>
-        <script src="./codemirror/lib/codemirror.js"></script>
-        <script src="./codemirror/mode/clike/clike.js"></script>
-        <!----------------------------GRAFOS----------------------------------->
-        <script type="text/javascript" src="vis-4.21.0/dist/vis.js"></script>
 
-        <link rel="stylesheet" href="./codemirror//lib//codemirror.css">
-        <link rel="stylesheet" href="./codemirror//theme//eclipse.css">
+        <!----------------------------INTERFAZ PESTANIA----------------------------------->
+        <script type="text/javascript" src="server/jquery-1.7.2.min.js"></script>
+        <script src="server/codemirror/lib/codemirror.js"></script>
+        <script src="server/codemirror/mode/clike/clike.js"></script>
+        <script type="text/javascript" src="server/main.js"></script>
+        <!----------------------------GRAFOS----------------------------------->
+        <script type="text/javascript" src="server/vis-4.21.0/dist/vis.js"></script>
+
+        
+    
+
+        <link rel="stylesheet" href="server/codemirror//lib//codemirror.css">
+        <link rel="stylesheet" href="server/codemirror//theme//eclipse.css">
     
         <title>Proyecto 2</title>
     </head>
     <body>
-    <div class="contenedor3">
-    <h3 class="h3">Tabs: </h3>
-    <button onclick="agregar();" title="AgregarPestana" id="btn4" class="btnp">Add</button>
-    <button onclick="quitar();" title="QuitarPestana" id="btn5" class="btnp">Remove</button>
-    <button onclick="DescargarArchivo();" id="guardar" title="Guardar" class="btnp">Download</button>
-    &nbsp;&nbsp;&nbsp;&nbsp;<h3 class="h3">Translate to: </h3>
-    <button onclick="AnalizarPatita();" id="btn5" class="btnp">Python</button>
-    <button onclick="AnalizarJison();" id="btn5" class="btnp">JavaScript</button>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;<h3 class="h3">Carnet: 201504220</h3>
+        
+        <div class="contenedor3">
+        <h3 class="h3">Tabs: </h3>
+        <button onclick="agregar();" title="AgregarPestana" id="btn4" class="btnp">Add</button>
+        <button onclick="quitar();" title="QuitarPestana" id="btn5" class="btnp">Remove</button>
+        <button onclick="DescargarArchivo();" id="guardar" title="Guardar" class="btnp">Download</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;<h3 class="h3">Translate to: </h3>
+        <button onclick="TraducirPython();" id="btn5" class="btnp">Python</button>
+        <button onclick="TraducirJavascript();" id="btn5" class="btnp">JavaScript</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;<h3 class="h3">Carnet: 201504220</h3>
     
     </div>
     

@@ -99,6 +99,8 @@ INICIO : TODO EOF {$$ = new Nodo('RAIZ','');
                 //let temp = new Recorrer($$);
                 $$.addTokens(tk_tokens);
                 $$.addErrores(tk_errores);
+                tk_tokens = []
+                tk_errores = []
                 return $$;
                 };
 
@@ -107,7 +109,10 @@ TODO : Rpublic S  TODO {$$ = new Nodo('INICIO','');
                         $$.addHijo($2);
                         $$.addHijo($3);
                         }
-    | LCierra {console.log('Error sintactico en linea: '+this._$.first_line + ', y columna: '+this._$.first_column)}
+    | error LCierra {
+            tk_errores.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext});
+            console.log('Error sintactico en linea: '+this._$.first_line + ', y columna: '+this._$.first_column);
+            }
     | ;
         
 S : Rclass Identificador LAbre CONTCLASS LCierra {$$ = new Nodo('S','');
