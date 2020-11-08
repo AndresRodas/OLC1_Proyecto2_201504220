@@ -80,7 +80,7 @@
 
 <<EOF>>                 %{ return 'EOF'; %}
 
-.                       %{  tk_errores.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext});%}
+.                       %{  tk_errores.push({linea:yylloc.first_line, columna:yylloc.first_column,tipo: 'Lexico', descripcion:'El caracter: '+yytext+' no pertenece al lenguaje'});%}
 /lex
 
 
@@ -109,10 +109,6 @@ TODO : Rpublic S  TODO {$$ = new Nodo('INICIO','');
                         $$.addHijo($2);
                         $$.addHijo($3);
                         }
-    | error LCierra {
-            tk_errores.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext});
-            console.log('Error sintactico en linea: '+this._$.first_line + ', y columna: '+this._$.first_column);
-            }
     | ;
         
 S : Rclass Identificador LAbre CONTCLASS LCierra {$$ = new Nodo('S','');
@@ -128,7 +124,11 @@ S : Rclass Identificador LAbre CONTCLASS LCierra {$$ = new Nodo('S','');
                                                     $$.addHijo(new Nodo($3,'LAbre'));
                                                     $$.addHijo($4);
                                                     $$.addHijo(new Nodo($5,'LCierra'));
-                                                    };
+                                                    }
+        | error LCierra {
+                        tk_errores.push({linea:this._$.first_line, columna:this._$.first_column,tipo:'Sintactico',descripcion:'Se esperaba: Rclass y se encontró: '+yytext});
+                        console.log('Error sintactico en linea: '+this._$.first_line + ', y columna: '+this._$.first_column);
+                        };
 
 CONTINTER : Rpublic TIPO Identificador PAbre NEXTFUNC PCierra Pyc CONTINTER {$$ = new Nodo('CONTINTER','');
                                                                             $$.addHijo(new Nodo($1,'Rpublic'));
@@ -140,6 +140,10 @@ CONTINTER : Rpublic TIPO Identificador PAbre NEXTFUNC PCierra Pyc CONTINTER {$$ 
                                                                             $$.addHijo(new Nodo($7,'Pyc'));
                                                                             $$.addHijo($8);
                                                                             }
+            |  error Pyc {
+                                tk_errores.push({linea:this._$.first_line, columna:this._$.first_column,tipo:'Sintactico',descripcion:'Se esperaba: Rclass y se encontró: '+yytext});
+                                console.log('Error sintactico en linea: '+this._$.first_line + ', y columna: '+this._$.first_column);
+                                }
             | ;
 
 CONTCLASS :  Rpublic CCN {$$ = new Nodo('CONTCLASS','');
@@ -150,6 +154,10 @@ CONTCLASS :  Rpublic CCN {$$ = new Nodo('CONTCLASS','');
                                     $$.addHijo($1);
                                     $$.addHijo($2);
                                     }
+            |  error Pyc {
+                                tk_errores.push({linea:this._$.first_line, columna:this._$.first_column,tipo:'Sintactico',descripcion:'Se esperaba: DECLARACION y se encontró: '+yytext});
+                                console.log('Error sintactico en linea: '+this._$.first_line + ', y columna: '+this._$.first_column);
+                                } 
             | ;
 
 CCN : MAIN CONTCLASS {$$ = new Nodo('CCN','');
@@ -200,7 +208,11 @@ DECLARACION : Rint Identificador NEXTDEC {$$ = new Nodo('DECLARACION','');
                                         $$.addHijo(new Nodo($1,'Rboolean'));
                                         $$.addHijo(new Nodo($2,'Identificador'));
                                         $$.addHijo($3);
-                                        };
+                                        }
+                |    error LCierra {
+                                tk_errores.push({linea:yylloc.first_line, columna:yylloc.first_column,texto:yytext});
+                                console.log('Error sintactico en linea: '+this._$.first_line + ', y columna: '+this._$.first_column);
+                                };
 
 NEXTDEC : SIgual FINDEC {$$ = new Nodo('NEXT-DEC','');
                         $$.addHijo(new Nodo($1,'SIgual'));
@@ -298,6 +310,10 @@ INSTRUCCIONES : CICLO INSTRUCCIONES {$$ = new Nodo('INSTRUCCIONES','');
                                     $$.addHijo(new Nodo($2,''));
                                     $$.addHijo($3);
                                     }
+                |  error Pyc {
+                                tk_errores.push({linea:this._$.first_line, columna:this._$.first_column,tipo:'Sintactico',descripcion:'Se esperaba: INSTRUCCION y se encontró: '+yytext});
+                                console.log('Error sintactico en linea: '+this._$.first_line + ', y columna: '+this._$.first_column);
+                                } 
                 | ;
 
 CICLO : Rfor PAbre DECLARACION EXP Pyc EXP PCierra LAbre INSTRUCCIONES LCierra {$$ = new Nodo('CICLO','');
@@ -381,7 +397,7 @@ EXP : EXP Or EXP {$$ = new Nodo('EXP','');
                 }
     | P {$$ = new Nodo('EXP','');
                 $$.addHijo($1);
-                }; 
+                } ;
 
 P : Not EXP {$$ = new Nodo('P','');
                 $$.addHijo(new Nodo($1,''));
@@ -514,7 +530,7 @@ RECIBE : Identificador NEXTRECIBE {$$ = new Nodo('RECIBE','');
                 $$.addHijo($2);
                 }
         | Texto NEXTRECIBE {$$ = new Nodo('RECIBE','');
-                $$.addHijo(new Nodo($1,''));
+                $$.addHijo(new Nodo($1,'Texto'));
                 $$.addHijo($2);
                 };
 
@@ -547,7 +563,7 @@ SALIDA : Rprint PAbre MSG PCierra Pyc {$$ = new Nodo('END-PRINT','');
                 $$.addHijo(new Nodo($5,''));
                 } ;
 
-MSG : Texto {$$ = new Nodo('MSG','');
+MSG : Texto {$$ = new Nodo('MSG','Texto');
                 $$.addHijo(new Nodo($1,''));
                 } 
     | EXP  {$$ = new Nodo('MSG','');

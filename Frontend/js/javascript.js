@@ -32,22 +32,16 @@ function Analizar(entrada){
     let Raiz = parser.parse(entrada)
     Tokens = Raiz.tokens.slice()
     Errores = Raiz.errores.slice()
-    Raiz.id = 0;
-    Raiz.valor = '' 
-    Raiz.tipo = ''
-    Raiz.hijos = []
-    Raiz.tokens = []
-    Raiz.errores = []
-
+    
     //Se grafica el AST
-    grafica_ast = 'digraph { '
+    grafica_ast = 'digraph G { '
     Graficar(Raiz)
-    grafica_ast = grafica_ast + ' }'
+    
 
     //se realiza la traduccion al lenguaje js
     Tokens_Js = TraducirJs(Tokens)
     for(let tk of Tokens_Js){
-        Traduccion = Traduccion + tk + ' '
+        Traduccion += tk + ' '
     }
 
 }
@@ -68,7 +62,7 @@ function TraducirJs(Tokens) {
                 tk_nuevo = Tokens[i].texto+'\n\t'
                 Tk_Js.push(tk_nuevo)
                 if (flag_class){
-                    tk_nuevo = 'constructor(){\n\n\t}'
+                    tk_nuevo = 'constructor(){\n\n\t}\n'
                     Tk_Js.push(tk_nuevo)
                     flag_class = false;
                 }
@@ -282,16 +276,21 @@ function TraducirJs(Tokens) {
 
 //se grafica el AST
 function Graficar(nodo){
+    
     if (nodo != undefined){
+        if (nodo.tipo == 'Texto') nodo.valor = 'Texto'
+        console.log(nodo.valor)
         if(nodo.id == 0){
             nodo.id = id_n;
             id_n ++
         }
         /*id [label= valor fillcolor="#d62728" shape="circle"]*/
-        grafica_ast = grafica_ast + nodo.id + '[label= "'+ nodo.valor + '" ];'
+        grafica_ast += nodo.id + '[label= "'+ nodo.valor + '" ];'
+        //console.log(nodo.id + '[label= "'+ nodo.valor + '" ];')
         if (nodo.hijos != undefined){
             nodo.hijos.forEach(element => {
-                grafica_ast = grafica_ast + nodo.id + '->' + id_n + ';'
+                grafica_ast += nodo.id + '->' + id_n + ';'
+                //console.log(nodo.id + '->' + id_n + ';')
                 Graficar(element);
             });
         }   
@@ -300,7 +299,7 @@ function Graficar(nodo){
 
 // aqui se inicializa el servidor
 app.use(cors())
-app.use(express.json({ limit: '1mb'})) 
+app.use(express.json({ limit: '5mb'})) 
 
 app.listen(3666, function () {
     console.log('Server JavaScript on port: 3666')
@@ -341,7 +340,9 @@ app.get('/traduccion', async function (req, res) {
 //responder con grafo de dot 
 app.get('/grafo', async function (req, res) {
     //aqui se le manda lo que querramos
+    grafica_ast = grafica_ast + ' }'
     let traduc = [grafica_ast]
     res.send(traduc)
+    console.log(traduc[0])
     console.log('Sending graph')
 })

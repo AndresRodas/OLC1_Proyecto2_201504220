@@ -32,9 +32,9 @@
         &nbsp;&nbsp;&nbsp;&nbsp;<h3 class="h3">Translate to: </h3>
         <button onclick="TraducirPython();" id="btn5" class="btnp">Python</button>
         <button onclick="TraducirJavascript();" id="btn5" class="btnp">JavaScript</button>
+        <button onclick="DescargarTraduccion();" id="btn5" class="btnp">Download</button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;<h3 class="h3">Carnet: 201504220</h3>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3 class="h3">Carnet: 201504220</h3>
     
     </div>
     
@@ -54,15 +54,25 @@
             
         </div><br>
         <div class="contenedor2"> <br>
-            <textarea id="consol_py" class="consol" rows="20" cols="55" autocapitalize="false" readonly>
-Esta es la consola de Pyhton.
+            <textarea id="consol_py" class="consol" rows="20" cols="58" autocapitalize="false" readonly>~$ Esta es la consola de Pyhton.
             </textarea>
-            <textarea id="consol_js" class="consol" rows="20" cols="55" readonly>
-Esta es la consola de Javascript.
+            <textarea id="consol_js" class="consol" rows="20" cols="57" readonly>~$ Esta es la consola de Javascript.
             </textarea>
+        </div><br>
+        <div class="contenedor" >
+            <h1 style="text-align: center;" >REPORTE AST</h1>
+            <div id="grafo" style="text-align: center;"></div>
         </div>
-        
-        <div id="grafo" style="text-align: center;"></div>
+         
+        <div  style="text-align: center;" class="contenedor">
+            <h1 style="text-align: center;" >LISTA DE TOKENS</h1>
+            <table id="tabla_token" BORDER style="margin: 0 auto;" ></table>
+        </div>
+
+        <div class="contenedor">
+            <h1 style="text-align: center;" >REPORTE DE ERRORES</h1>
+            <table id="tabla_error" BORDER style="margin: 0 auto;" ></table>
+        </div>
         
     </body>
 </html>

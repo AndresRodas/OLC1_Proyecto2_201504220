@@ -1,3 +1,7 @@
+//***************************VARIABLES GLOBALES********************
+
+var TextoTraducido = ''
+var NombreArchivo = ''
 
 var contador=1;
 function get_cont(){
@@ -207,11 +211,11 @@ function DescargarArchivo(){
 
 
 function TraducirJavascript(){
-
+    NombreArchivo = '.js'
     let tk = []
     let err = []
     let trd = ''
-    let gra = ''
+    let grf = ''
 
     //Definicion de la entrada
     var ta = document.getElementById(get_vent());
@@ -229,7 +233,6 @@ function TraducirJavascript(){
     //Peticiones post
     fetch('http://localhost:3666', options)
 
-    //setTimeout(getJs(),5000);
     setTimeout(function () {
         
         console.log('Pasaron dos segundos')
@@ -240,6 +243,8 @@ function TraducirJavascript(){
             console.log('LISTA DE TOKENS')
             console.log(data)
             tk = data.slice()
+            //hay que imprimir los tokens en la consola
+            TokensTable(tk)
         }).catch(err =>  console.log(err))
 
         //Peticiones get: Traduccion
@@ -249,6 +254,9 @@ function TraducirJavascript(){
             console.log('LISTA DE ERRORES')
             console.log(data)
             err = data.slice()
+            ConsolaJs(err)
+            ErrorsTable(err)
+
         }).catch(err =>  console.log(err))
 
         //Peticiones get: Errores
@@ -256,8 +264,8 @@ function TraducirJavascript(){
         .then(response => response.json() )
         .then(data =>  {
             console.log('TRADUCCION A JAVASCRIPT')
-            console.log(data)
             trd = data[0]
+            TextoTraducido = trd
         }).catch(err =>  console.log(err))
 
         //Peticiones get: grafo
@@ -265,34 +273,21 @@ function TraducirJavascript(){
         .then(response => response.json() )
         .then(data =>  {
             console.log('GRAFO')
-            console.log(data)
-            gra = data[0]
+            grf = data[0]
+            var salida_grafo = document.getElementById('grafo');
+            d3.select(salida_grafo).graphviz().renderDot(grf); 
         }).catch(err =>  console.log(err))
 
-    },2000);
-
-    setTimeout(function () {
-        //Graficar   
-        var salida_grafo = document.getElementById('grafo');
-        d3.select(salida_grafo).graphviz().renderDot(gra); 
-
     },1000);
-
-    //     let elemento = document.getElementById('grafo')
-    //     elemento.innerHTML = `
-    //         <p>${data[0]}</p>
-    //     `;
-
+    alert("Se realizó el analisis y traduccion a Javascript");
 }
 
 function TraducirPython(){
-
+    NombreArchivo = '.py'
     let tks = []
     let err = []
     let tra = ''
-    let nod = []
-    let edg = []
-
+    let grf = ''
     //Definicion de la entrada
     var ta = document.getElementById(get_vent());
     var contenido = ta.value; 
@@ -317,6 +312,8 @@ function TraducirPython(){
             console.log('LISTA DE TOKENS')
             console.log(data)
             tks = data.slice()
+            //tokens a la tabla
+            TokensTable(tks)
         }).catch(err =>  console.log(err))
     
         //Peticiones get: Traduccion
@@ -324,8 +321,8 @@ function TraducirPython(){
         .then(response => response.json() )
         .then(data =>  {
             console.log('TRADUCCION A PYTHON')
-            console.log(data)
             tra = data[0]
+            TextoTraducido = tra
         }).catch(err =>  console.log(err))
     
         //Peticiones get: Errores
@@ -335,96 +332,130 @@ function TraducirPython(){
             console.log('LISTA DE ERRORES')
             console.log(data)
             err = data.slice()
+            ConsolaPy(err)
+            ErrorsTable(err)
         }).catch(err =>  console.log(err))
     
-        //Peticiones get: Nodos
-        fetch('http://localhost:3667/nodes')
+        //Peticiones get: grafo
+        fetch('http://localhost:3667/grafo')
         .then(response => response.json() )
         .then(data =>  {
             console.log('LISTA DE NODOS')
-            console.log(data)
-            nod = data.slice()
+            grf = data[0]
+            console.log('***************************************')
+            console.log(grf)
+            var salida_grafo = document.getElementById('grafo');
+            d3.select(salida_grafo).graphviz().renderDot(grf); 
         }).catch(err =>  console.log(err))
     
-        //Peticiones get: Edges
-        fetch('http://localhost:3667/edges')
-        .then(response => response.json() )
-        .then(data =>  {
-            console.log('LISTA DE EDGES')
-            console.log(data)
-            edg = data.slice()
-        }).catch(err =>  console.log(err))
-        
     },1000);
-
-    setTimeout(function () {
-        //Graficar   
-       
-        GrafoPy(nod, edg)
-
-    },1000);
+    alert("Se realizó el analisis y traduccion a Python");
 
 }
 
-//grafo 
-function GrafoPy(nodes, edges) { 
-    nodes = NodosRepetidos(nodes)
-    edges = EdgesRepetidos(edges)  
-    var options = {
-        layout:{
-            hierarchical:{
-                direction: "UD",
-                sortMethod: "directed"
-            },
-        },
-        edges: {
-            arrows: "to",
-        },
-        width:  '1000px',
-        height: '1000px',
-    }; 
-    // create a network
-    var container = document.getElementById('grafo');
-    var data = {
-        nodes: nodes,
-        edges: edges
-    };
-    var network = new vis.Network(container, data, options);
-
+function TokensTable(Tokens) {
+    let cont = 1
+    let element = document.getElementById('tabla_token')
+    let inner = `
+        <tr>
+            <td><b>NO.</b></td>
+            <td><b>FILA</b></td>
+            <td><b>COLUMNA<b/></td>
+            <td><b>TIPO</b></td>
+            <td><b>DESCRIPCION</b></td>
+        </tr>
+    `;
+    for(let tk of Tokens){
+        inner += `
+        <tr>
+            <td>${cont}</td>
+            <td>${tk.linea}</td>
+            <td>${tk.columna}</td>
+            <td>${tk.nombre}</td>
+            <td>${tk.texto}</td> 
+        </tr>
+    `;
+    cont ++
+    } 
+    element.innerHTML = inner
 }
-//quitar nodos repetidos
-function NodosRepetidos(nodes) {
-    let nodes_rep = [];
-    for(let nod of nodes){
-        let flag = true;
-        for(let nod_rep of nodes_rep){
-            if(nod.id == nod_rep.id){
-                flag = false;
-            }
-        }
-        if (flag){
-            nodes_rep.push(nod)
-        }
+
+function ErrorsTable(Errores) {
+    let cont = 1
+    let element = document.getElementById('tabla_error')
+    let inner = `
+        <tr>
+            <td><b>NO.</b></td>
+            <td><b>TIPO ERROR</b></td>
+            <td><b>FILA</b></td>
+            <td><b>COLUMNA<b/></td>
+            <td><b>DESCRIPCION</b></td>
+        </tr>
+    `;
+    for(let err of Errores){
+        inner += `
+        <tr>
+            <td>${cont}</td>
+            <td>${err.tipo}</td>
+            <td>${err.linea}</td>
+            <td>${err.columna}</td>
+            
+            <td>${err.descripcion}</td> 
+        </tr>
+    `;
+    cont ++
+    } 
+    element.innerHTML = inner
+}
+
+function ConsolaJs(Error) {
+    let element = document.getElementById('consol_js')
+    let inner = ''
+    element.innerHTML = '~$ Esta es la consola de JavaScript.'
+    for(let err of Error){
+        inner += '~$ Error '+err.tipo+' en la linea '+err.linea+' y columna '+err.columna+', '+err.descripcion+'\n'
     }
-    nodes = []
-    nodes = nodes_rep
-    return nodes
+    element.innerHTML = inner
 }
-//quitar edges repetidos
-function EdgesRepetidos(edges) {
-    let edges_rep = [];
-    for(let edg of edges){
-        let flag = true;
-        for(let edg_rep of edges_rep){
-            if(edg.from == edg_rep.from && edg.to == edg_rep.to ){
-                flag = false;
-            }
-        }
-        if (flag){
-            edges_rep.push(edg)
-        }
+
+function ConsolaPy(Error) {
+    let element = document.getElementById('consol_py')
+    let inner = ''
+    element.innerHTML = '~$ Esta es la consola de Pyhton.'
+    for(let err of Error){
+        inner += '~$ Error '+err.tipo+' en la linea '+err.linea+' y columna '+err.columna+', '+err.descripcion+'\n'
     }
-    edges = []
-    edges = edges_rep
-    return edges
+    element.innerHTML = inner
+}
+
+function DescargarTraduccion() {
+    console.log(TextoTraducido+NombreArchivo)
+    let contenido = TextoTraducido;
+    let name = NombreArchivo
+
+    if(name == '' || contenido == ''){
+        alert('Aun no se ha realizado ninguna traduccion!')
+        return
+    }
+
+    var formato=get_vent().replace("textarea","")
+
+    var nombre = 'output_'+formato+name
+
+
+    var file=new Blob([contenido], {type: 'text/plain'});
+
+    if(window.navigator.msSaveOrOpenBlob){
+        window.navigator.msSaveOrOpenBlob(file, nombre);
+    }else{
+        var a=document.createElement("a"),url=URL.createObjectURL(file);
+        a.href=url;
+        a.download=nombre;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function(){
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        },0); 
+    }
 }

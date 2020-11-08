@@ -1,6 +1,8 @@
+//const { request } = require('express')
+const Nodo = require('./nodo_arbol');
+
 var express = require('express')
 var cors = require('cors')
-const { request } = require('express')
 
 var app = express()
 
@@ -8,8 +10,8 @@ var app = express()
 var Tokens = new Array() 
 var Errores = new Array()
 var salida = ''
-var nodes = []
-var edges = []
+var graphvi = ''
+var id_n = 1
 
 
 //********************************ANALIZADOR LEXICO******************************************
@@ -376,9 +378,9 @@ function Scanner(Tokens, Errores, entrada){
                 linea: linea,
                 columna: columna,
                 texto: word,
-                nombre: 'Texto'
+                nombre: 'Error'
             }
-            Tokens.push(tk_nuevo)
+            Errores.push(tk_nuevo)
             return
         }
     }
@@ -402,14 +404,14 @@ function Scanner(Tokens, Errores, entrada){
        
 }
 //********************************ANALIZADOR SINTÁCTICO**************************************
-function Parser(TokensEntrada, Errores, nodes, edges){
-    let cont_graf = 1;
+function Parser(TokensEntrada, Errores){
     let Tokens = []
     for(let token of TokensEntrada){
         Tokens.push(token)
     }
     let temporal = ''
     let result = ''
+    let Raiz = new Nodo('INICIO')
     let Producciones = new Map([
         ['INICIO',[['Rpublic',['INICIO','S','Rpublic']],['$',['Epsilon']]]], 
         ['S',[['Rclass',['LCierra','CONTCLASS','LAbre','Identificador','Rclass']],['Rinterface',['LCierra','CONTINTER','LAbre','Identificador','Rinterface']]]],
@@ -535,20 +537,69 @@ function Parser(TokensEntrada, Errores, nodes, edges){
                 if (x[0] == var2){
                     //se desglosa
                     temporal = x[1]
-                    for(let son of x[1]){
-                        if(var1 != son && son != 'Epsilon'){
-                            nodes.push({id: var1, label: var1, group: var2})
-                            nodes.push({id: son, label: son, group: var2})
-                            edges.push({from: var1, to: son}) //se agrega el enlace del grafo!!!!!!!!!!!!!!!!
-                            
-                        }   
+                    if (temporal != undefined){
+                        let desctructive = temporal.slice()
+                        let rev_temp = desctructive.reverse()
+                        console.log('REVERSER: '+rev_temp)
+                        for(let temp of rev_temp){
+                            console.log('Hoja: '+var1+', Hijo: '+temp)
+                            if (temp != 'Epsilon') AgregarHoja(Raiz, var1, temp) //se agregan los hijos al arbol
+                        }
                     }
                 }
             }
         }
         return temporal
     }
+
+    ImprimirArbol(Raiz)
+    Graficar(Raiz)
+    id_n = 1
 }
+
+/************************************Agregar Hoja *******************************************/
+function AgregarHoja(nodo, valor, add){
+    if(nodo.valor == valor && nodo.valor != add){
+        let nuevo = new Nodo(add)
+        nodo.addHijo(nuevo)
+        return
+    }
+    if (nodo.hijos != undefined){
+        nodo.hijos.forEach(element => {
+            AgregarHoja(element, valor, add);
+        });
+    }
+}
+
+function ImprimirArbol(nodo){
+    console.log(nodo.valor)
+    if (nodo.hijos != undefined){
+        nodo.hijos.forEach(element => {
+            ImprimirArbol(element);
+        });
+    }   
+}
+
+function Graficar(nodo){
+    if (nodo != undefined){
+        if(nodo.id == 0){
+            nodo.id = id_n;
+            id_n ++
+        }
+        /*id [label= valor fillcolor="#d62728" shape="circle"]*/
+        console.log(nodo.id + '[label= "'+ nodo.valor + '" ];')
+        graphvi += nodo.id + '[label= "'+ nodo.valor + '" ];'
+        if (nodo.hijos != undefined){
+            nodo.hijos.forEach(element => {
+                console.log(nodo.id + '->' + id_n + ';')
+                graphvi += nodo.id + '->' + id_n + ';'
+                Graficar(element);
+            });
+        }   
+    }
+}
+
+
 //********************************ANALIZAR ENTRADA*******************************************
 function Analizar(entrada){
     console.log('Python analizer run! \nEntrada: '+entrada)
@@ -561,27 +612,30 @@ function Analizar(entrada){
     Tokens = [] 
     Errores = []
     salida = ''
-    nodes = []
-    edges = []
+    graphvi = ''
+  
 
     //se realiza el analisis lexico
     Scanner(Tokens, Errores, entrada)
 
+    //set inicial grafo ast
+    graphvi += 'digraph G { '
+
     //copiar tokens para parsear
-    Tokens_Parser = Tokens.slice()
+    Tokens_Parser = Tokens.slice()    
 
     //extrayendo comentarios
     ExtraerComentarios(Tokens_Parser, Comentarios)
 
     //se realiza el analisis sintactico
-    Parser(Tokens_Parser, Errores, nodes, edges)
+    Parser(Tokens_Parser, Errores)
 
     //imprimir
     Imprimir(Tokens, 'Tokens')
     Imprimir(Errores, 'Errores')
 
     //realizar Grafo de analisis sintactico
-    //Grafo(nodes, edges)
+
         
     //se traduce a python (retornar "salida")
     var TokensPython = TraducirPy(Tokens)
@@ -957,7 +1011,7 @@ function Imprimir(Lista, str){
 // aqui se inicializa el servidor
 app.use(cors())
 
-app.use(express.json({ limit: '1mb'})) 
+app.use(express.json({ limit: '5mb'})) 
 
 app.listen(3667, function () {
     console.log('Server Python on port: 3667')
@@ -991,18 +1045,13 @@ app.get('/errores', async function (req, res) {
     //aqui se le manda lo que querramos
     res.send(Errores)
     console.log('I got a Get')
-})
+}) 
 
 //responder con traduccion 
-app.get('/nodes', async function (req, res) {
+app.get('/grafo', async function (req, res) {
     //aqui se le manda lo que querramos
-    res.send(nodes)
-    console.log('I got a Get')
-})
-
-//responder con traduccion 
-app.get('/edges', async function (req, res) {
-    //aqui se le manda lo que querramos
-    res.send(edges)
+    graphvi += '}'
+    let graf = [graphvi]
+    res.send(graf)
     console.log('I got a Get')
 })
